@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  birthdate: 2016-12-29
+  mobile_number: MyString
+  phone_number: MyString
+  pay_start: 2016-12-29
+  pay_period: 1
+  pay_amount: 9.99
+  gender_id: 1
+  city_id: 1
+
+two:
+  name: MyString
+  email: MyString
+  birthdate: 2016-12-29
+  mobile_number: MyString
+  phone_number: MyString
+  pay_start: 2016-12-29
+  pay_period: 1
+  pay_amount: 9.99
+  gender_id: 1
+  city_id: 1
