@@ -5,7 +5,7 @@ ActiveAdmin.register Person do
   #
   # permit_params :list, :of, :attributes, :on, :model
 
-  permit_params :name, :email, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id
+  permit_params :name, :email, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number
 
   menu priority: 1
 

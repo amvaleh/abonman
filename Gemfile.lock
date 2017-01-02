@@ -39,6 +39,12 @@ GIT
       request_store (~> 1.0)
 
 GIT
+  remote: git://github.com/vigetlabs/active_material.git
+  revision: c67d6854259baed79b35ec8413704ee3783582c8
+  specs:
+    active_material (1.4.1)
+
+GIT
   remote: https://github.com/rails/activemodel-serializers-xml
   revision: 570ee7ed33d60e44ca1f3ccbec3d1fbf61d52cbf
   specs:
@@ -244,6 +250,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_material!
   activeadmin!
   activemodel-serializers-xml!
   byebug

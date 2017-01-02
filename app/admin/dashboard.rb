@@ -14,21 +14,15 @@ ActiveAdmin.register_page "Dashboard" do
 
     columns do
       column do
-        panel "Recent People" do
+        panel "Recent Reminders" do
           ul do
-            Person.last(5).map do |person|
-              li link_to(person.name, admin_person_path(person))
+            Reminder.last(5).map do |r|
+              li link_to(r.sms_date, admin_reminder_path(r)) , link_to(r.person.name,admin_person_path(r.person))
+              br
             end
           end
         end
       end
-
-      column do
-        panel "Introduction" do
-          para "Welcome to Aboonmaan."
-        end
-      end
-
     end
 
 
