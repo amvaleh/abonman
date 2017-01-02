@@ -3,7 +3,6 @@ ActiveAdmin.register AdminUser do
 
   menu priority: 4
 
-
   index do
     selectable_column
     id_column
