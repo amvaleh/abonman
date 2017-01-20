@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170101211842) do
+ActiveRecord::Schema.define(version: 20170119230747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,21 @@ ActiveRecord::Schema.define(version: 20170101211842) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payment_statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "payment_status_id", default: 1
+    t.decimal  "amount"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.date     "deadline"
+  end
+
   create_table "people", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -69,16 +84,18 @@ ActiveRecord::Schema.define(version: 20170101211842) do
     t.decimal  "pay_amount"
     t.integer  "gender_id"
     t.integer  "city_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "telegram_contact"
   end
 
   create_table "reminders", force: :cascade do |t|
-    t.integer  "person_id"
+    t.integer  "payment_id"
     t.date     "sms_date"
     t.integer  "sms_status_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "alert_times",   default: 0
   end
 
   create_table "sms_statuses", force: :cascade do |t|

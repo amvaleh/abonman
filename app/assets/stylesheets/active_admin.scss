@@ -8,12 +8,12 @@
 // $sidebar-width: 242px;
 
 // Active Admin's got SASS!
-$am-theme-primary: #0dc0d2;
-$am-theme-primary-700: #2837b5;
-$am-theme-secondary: #2837b5;
-@import "active_admin/mixins";
-@import "active_material";
 
+
+
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import "active_admin_datetimepicker";
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //

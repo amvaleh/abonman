@@ -3,13 +3,12 @@ ActiveAdmin.register Person do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-  # permit_params :list, :of, :attributes, :on, :model
 
   permit_params :name, :email, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number
 
-  menu priority: 1
+  menu priority: 2
 
-  scope :all, default: true
+  # scope :all, default: true
   # scope :two
 
   index do
@@ -23,6 +22,19 @@ ActiveAdmin.register Person do
     column :created_at
     actions
   end
+
+  show do
+    attributes_table :name, :email, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number
+    panel "پرداخت های #{person.name}" do
+      table_for person.payments do
+        column :amount
+        column :deadline
+        column :payment_status_id
+      end
+    end
+    active_admin_comments
+  end
+
 
 
   #

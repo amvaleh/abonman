@@ -17,7 +17,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Recent Reminders" do
           ul do
             Reminder.last(5).map do |r|
-              li link_to(r.sms_date, admin_reminder_path(r)) , link_to(r.person.name,admin_person_path(r.person))
+              li link_to(r.sms_date, admin_reminder_path(r)) , link_to(r.payment.person.name,admin_person_path(r.payment.person))
               br
             end
           end
