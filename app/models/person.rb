@@ -56,7 +56,7 @@ class Person < ApplicationRecord
     person.password_confirmation = pass
     puts pass
     person.save
-    telegram_cli = "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli"
+    telegram_cli = telegram_path
     contact_name = self.name
     contact_name = contact_name.gsub(" ", "_")
     contact_name2 = contact_name + " " + self.pay_period.to_s + "mah"
