@@ -1,13 +1,191 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Abonmaan</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<html class="">
+<head>
+  <title>Abonmaan</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
+</head>
+<body>
+  <!-- Wrapper-->
+  <div id="wrapper">
 
-  <body>
-    <%= yield %>
+    <nav id="nav">
+      <a href="#me" class="icon fa-home active"></a>
+      <a href="#profile" class="icon fa-user"></a>
+      <a href="#aboneh" class="icon fa-credit-card"></a>
+      <a href="#telegram" class="icon fa-send"></a>
+      <a href="#info" class="icon fa-info"></a>
+      <br>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+      <!-- Me -->
+      <article id="me" class="panel">
+        <header>
+          <h1>
+            همیار
+            خطابه غدیر و فدک
+          </h1>
+          <p>
+
+          </p>
+        </header>
+        <a href="#profile" class="jumplink pic">
+          <span class="arrow icon fa-chevron-right"><span>پروفایل</span></span>
+          <!-- <img src="images/me.jpg" alt="" /> -->
+          <%= image_tag "me.jpg" %>
+        </a>
+        <div style="bottom:0px;" class="error">
+          <p style="color:green;"><%= notice %></p>
+          <p style="color:red;">
+            <% if alert=="Invalid Mobile number or password." %>
+            شماره موبایل یا رمز عبور اشتباه است.
+            <% else %>
+            <%= alert %>
+            <% end %>
+          </p>
+        </div>
+      </article>
+
+      <!-- Work -->
+      <article id="profile" class="panel" style="direction: rtl; ">
+        <% if not person_signed_in? %>
+        <header>
+          <h2>
+            ورود
+          </h2>
+        </header>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <!-- <form action="#" method="post"> -->
+        <div>
+          <div class="row">
+            <div class="6u 12u$(mobile)" style="float:right!important">
+              <!-- <input type="number" name="name" placeholder="شماره موبایل"  /> -->
+              <%= f.number_field :mobile_number, autofocus: true, placeholder: "شماره موبایل" %>
+            </div>
+            <div class="6u 12u$(mobile)">
+              <%= f.password_field :password, autocomplete: "off" , placeholder: "رمز عبور" %>
+              <!-- <input type="password" name="email" placeholder="رمز عبور" /> -->
+            </div>
+            <div class="12u$">
+              <input type="submit" value="ثبت" style="float:left"/>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <% else %>
+        <header>
+          <h2>
+            پرداخت های من
+          </h2>
+        </header>
+        <div class="row" style="direction rtl;">
+          <div class="4u 12u$(mobile)">
+            پرداخت بعدی :
+            <small>
+              <% date = current_person.payments.wating.last.deadline %>
+              <%= date.to_pdate.strftime("%e %b %Y") %>
+            </small>
+          </div>
+          <div class="4u 12u$(mobile)">
+            پرداخت شده ها  : <%= current_person.payments.done.sum(:amount).to_i%> تومان
+          </div>
+          <div class="4u 12u$(mobile) ">
+            دوره ها :<%= current_person.payments.count%>
+          </div>
+        </div>
+        <section>
+          <div class="row" style="direction:rtl;">
+            <% current_person.payments.order("deadline desc").each do |p| %>
+            <div class="4u 12u$(mobile)" style="float: right;">
+              <div class="payment" style=" background-image: url(images/pic0<%=rand(1..9)%>.jpg); background-size:cover;">
+                <p style="margin-top:1%">
+                  تاریخ:
+                  <%= p.deadline.to_pdate.strftime("%e %b %Y")%>
+                  <br>
+                  مبلغ:
+                  <%= p.amount.to_i %> تومان
+                  <br>
+                  شناسه پیگری :
+                  <%= p.uid %>
+                </p>
+                <p style="border-top: solid 1px;">
+                  <%= p.farsi_status %>
+                </p>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </section>
+        <div class="12u$">
+          <%= link_to('خروج', destroy_person_session_path, :method => :delete , class: "button pull-left" , style: " text-decoration: none;") %>
+        </div>
+        <% end %>
+      </article>
+
+      <!-- Contact -->
+      <article id="aboneh" class="panel">
+        <header style="direction: rtl;">
+          <h2 style="text-align:center;">
+            مبلغ آبونه
+          </h2>
+        </header>
+        <form action="/pay" method="POST">
+          <div>
+            <div class="row" >
+              <div class="12u$ input-container"style="direction:rtl;">
+                <input type="text" style="text-align:center" name="amount" placeholder=" مبلغ را وارد کنید:" value="<%= @person.amount_for_the_person.to_i if @person.present? %>" />
+              </div>
+              <div class="12u$">
+                <% if @person.present?%>
+                <input type="hidden" name="person_id" value="<%= @person.id%>" >
+                <p style="direction: rtl; text-align:center;">
+                  <%= @person.name %> - آبونه <%= @person.payments.wating.last.deadline.to_pdate.strftime("%b")%> ماه
+                </p>
+                <% end %>
+                <input type="submit" value="پرداخت" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </article>
+
+      <article id="info" class="panel">
+        <header style="direction: rtl;">
+          <h2 style="text-align:center;">
+            آبونه چیست؟
+          </h2>
+        </header>
+      </article>
+
+      <article id="telegram" class="panel">
+        <header style="direction: rtl;">
+          <h2 style="text-align:center;">
+            کانال تلگرام خطابه غدیر و فدک
+          </h2>
+        </header>
+      </article>
+    </div>
+
+    <%#= yield %>
+
+    <!-- Footer -->
+    <div id="footer">
+      <ul class="copyright">
+        <li>&copy; KhetabeGhadir.com</li>
+        <li>
+          طراحی توسط تیم سایت<a href="http://khetabeghadir.com" style="text-decoration:none;">
+            خطابه غدیر و فدک</a>
+          </li>
+          <li>
+            <%= link_to "مدیر" , "/admin" , style: "text-decoration:none;"%>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
-</html>
+  </html>

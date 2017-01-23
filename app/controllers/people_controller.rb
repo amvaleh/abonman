@@ -1,5 +1,7 @@
 class PeopleController < ApplicationController
 
+  before_action :authenticate_admin_user!
+
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   # GET /people
@@ -70,6 +72,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :email, :birthdate, :mobile_number, :phone_number, :pay_start, :pay_period, :pay_amount, :gender_id, :city_id)
+      params.require(:person).permit(:name, :email_address, :birthdate, :mobile_number, :phone_number, :pay_start, :pay_period, :pay_amount, :gender_id, :city_id)
     end
 end

@@ -1,14 +1,22 @@
 class Person < ApplicationRecord
-
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of [:name,:mobile_number,:pay_period,:pay_start,:pay_amount]
 
+
+  devise :database_authenticatable, :registerable,
+  :rememberable, :trackable,
+  :authentication_keys => [:mobile_number]
+
+
+  validates_uniqueness_of :mobile_number
   scope :two, -> { where(pay_period: '2') }
 
   belongs_to :city
   belongs_to :gender
   has_many :payments
 
-  after_create :set_payment , :hi_telegram_contact
+  after_create :set_payment , :initiate
 
   after_update :update_payment
 
@@ -34,8 +42,13 @@ class Person < ApplicationRecord
     p.save
   end
 
-
-  def hi_telegram_contact
+  def initiate
+    pass = 1_000_000 + Random.rand(10_000_000 - 1_000_000)
+    person = self
+    person.password = pass
+    person.password_confirmation = pass
+    puts pass
+    person.save
     telegram_cli = "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli"
     contact_name = self.name
     contact_name = contact_name.gsub(" ", "_")
@@ -43,10 +56,59 @@ class Person < ApplicationRecord
     puts contact_name2
     res = `#{telegram_cli} -W -e 'add_contact +98#{self.mobile_number}  #{contact_name2}'`
     puts res
-    p = "\"#{self.name} محترم \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n یا علی.\""
+    p = "\"#{self.name} محترم \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number}  رمز عبور شما: #{pass} یا علی.\""
     puts p
     res = `#{telegram_cli} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{p}'`
     puts res
+  end
+
+  def hi_telegram_contact
+    # telegram_cli = "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli"
+    # contact_name = self.name
+    # contact_name = contact_name.gsub(" ", "_")
+    # contact_name2 = contact_name + " " + self.pay_period.to_s + "mah"
+    # puts contact_name2
+    # res = `#{telegram_cli} -W -e 'add_contact +98#{self.mobile_number}  #{contact_name2}'`
+    # puts res
+    # p = "\"#{self.name} محترم \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n  یا علی.\""
+    # puts p
+    # res = `#{telegram_cli} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{p}'`
+    # puts res
+  end
+
+  def not_payed_turns
+    total = 0
+    self.payments.ignored.each do |p|
+      total = total + p.amount - self.id
+    end
+    return total
+  end
+
+  def need_to_pay # wating and ignored
+    total = 0
+    self.payments.need_to_pay.each do |p|
+      total = total + p.amount
+    end
+    return total
+  end
+
+
+  def amount_for_the_person # wating and ignored
+    total = 0
+    self.payments.need_to_pay.each do |p|
+      total = total + p.amount - self.id
+    end
+    return total
+  end
+
+
+  def generate_password
+    pass = 1_000_000 + Random.rand(10_000_000 - 1_000_000)
+    person = self
+    person.password = pass
+    person.password_confirmation = pass
+    person.save
+    return pass
   end
 
 
@@ -59,7 +121,13 @@ class Person < ApplicationRecord
     self.pay_amount + self.id
   end
 
+  def email_required?
+    false
+  end
 
+  def email_changed?
+    false
+  end
 
 
 end

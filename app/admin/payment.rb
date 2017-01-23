@@ -13,6 +13,7 @@ ActiveAdmin.register Payment do
     column :person_id
     column :amount
     column :payment_status_id
+    column :uid
     column :deadline
     actions
   end

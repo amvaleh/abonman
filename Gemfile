@@ -44,6 +44,14 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 end
+gem 'savon'
+gem 'capistrano', '~> 3.1.0'
+gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano-rails', '~> 1.1.1'
+gem 'capistrano-rbenv', github: "capistrano/rbenv"
+gem 'devise'
+gem 'parsi-date'
+gem 'rails_pdate'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

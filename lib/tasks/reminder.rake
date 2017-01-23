@@ -1,5 +1,7 @@
 require "#{Rails.root}/app/helpers/application_helper"
 include ApplicationHelper
+include Rails.application.routes.url_helpers
+
 namespace :reminder do
   desc "TODO"
 
@@ -11,7 +13,7 @@ namespace :reminder do
         # here we should send sms and stuff
         case r.alert_times
         when 0 , 1 , 2 , 3
-          p = "لطفا مبلغ #{r.payment.amount} را برای آبونه خطابه غدیر و فدک به شماره حساب ۱۲۱۲۳۳ بانک پاسارگاد واریز نمایید. \\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید."
+          p = "لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را برای آبونه خطابه غدیر و فدک به شماره حساب ۱۲۱۲۳۳ بانک پاسارگاد واریز نمایید. \\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید. \\n  http://ab.khetabeghadir.com?p=#{r.payment.person.id}#aboneh"
           send_msg(r.payment.person,p)
           r.alert_times += 1
           # set this reminder on 2 days from now
@@ -32,7 +34,7 @@ namespace :reminder do
             p.amount = (person.pay_amount.to_i + person.id).to_s
             p.deadline = payment.deadline + person.pay_period.days # later month
           end
-          p = "تعداد آبونه های پرداخت نشده شما: #{person.payments.ignored.count} \\n موعد پرداخت بعدی شما #{new_payment.deadline} خواهد بود. \\n درصورت تمایل به انصراف از سامانه آبونه خطابه غدیر و فدک \\n لطفا با شماره ۲۲۳۹۳۸۱۴ تماس حاصل کنید. \\n لینک حساب کاربری شما: "
+          p = "سلام، شما#{person.payments.ignored.count} آبونه پرداخت نشده دارید. \\n موعد پرداخت بعدی شما #{new_payment.deadline} خواهد بود. \\n درصورت تمایل به انصراف از سامانه آبونه خطابه غدیر و فدک \\n لطفا با شماره ۲۲۳۹۳۸۱۴ تماس حاصل کنید. \\n لینک حساب کاربری شما: http://ab.khetabeghadir.com/#profile \\n شماره موبایل: #{person.mobile_number} \\n رمز عبور: #{person.generate_password}"
           send_msg(person,p)
         end
       end
