@@ -21,9 +21,11 @@ class Payment < ApplicationRecord
 
   def check_if_done
     if self.payment_status == PaymentStatus.find_by_name("done")
-      # delete reminder
-      r = self.reminder
-      r.destroy
+      if self.reminder.present?
+        # delete reminder
+        r = self.reminder
+        r.destroy
+      end
       # set new payment if payment is for a person
       if self.person.present?
         payment = Payment.create do |p|
@@ -50,11 +52,13 @@ class Payment < ApplicationRecord
   end
 
   def create_reminder
-    reminder = Reminder.new
-    reminder.payment = self
-    reminder.sms_date = self.deadline
-    reminder.sms_status_id = 1
-    reminder.save!
+    if self.person.present?
+      reminder = Reminder.new
+      reminder.payment = self
+      reminder.sms_date = self.deadline
+      reminder.sms_status_id = 1
+      reminder.save!
+    end
   end
 
   def sms_amount
