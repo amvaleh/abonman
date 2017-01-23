@@ -12,6 +12,13 @@ class Payment < ApplicationRecord
 
   after_update :check_if_done
 
+  before_destroy :destroy_reminder
+
+  def destroy_reminder
+    self.reminder.destroy
+  end
+
+
   def check_if_done
     if self.payment_status == PaymentStatus.find_by_name("done")
       # delete reminder

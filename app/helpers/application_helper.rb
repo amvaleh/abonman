@@ -10,7 +10,11 @@ module ApplicationHelper
   end
 
   def telegram_path
-    "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli"
+    if Rails.env.production?
+      "/home/deploy/tg/bin/telegram-cli"
+    else
+      "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli"
+    end
   end
 
   def resource_name

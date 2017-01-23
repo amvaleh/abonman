@@ -6,9 +6,6 @@ class Reminder < ApplicationRecord
 
 
 
-
-
-
   def check
     puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 00000000000000 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     # Reminder.all.each do |r|

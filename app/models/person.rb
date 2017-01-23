@@ -22,6 +22,13 @@ class Person < ApplicationRecord
 
   after_save :hi_telegram_contact
 
+  before_destroy :destroy_payments
+
+  def destroy_payments
+    self.payments.destroy_all
+  end
+
+
   def set_payment
     payment = Payment.new
     payment.person = self
