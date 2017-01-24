@@ -15,7 +15,7 @@ class Payment < ApplicationRecord
   before_destroy :destroy_reminder
 
   def destroy_reminder
-    self.reminder.destroy
+    self.reminder.destroy if self.reminder.present?
   end
 
 
