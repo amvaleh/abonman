@@ -1,4 +1,5 @@
 class Person < ApplicationRecord
+  include application_helper
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of [:name,:mobile_number,:pay_period,:pay_start,:pay_amount]
