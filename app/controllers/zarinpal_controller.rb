@@ -3,6 +3,11 @@ class ZarinpalController < ActionController::Base
     # WebSite : http://ipenpal.ir #
     # Version : 1.0 For ZarinPal #
     def pay
+      if Rails.env.production?
+        callbackurl = "http://ab.khetabeghadir.com"
+      else
+        callbackurl = "http://localhost:3000"
+      end
         if !params['amount'].blank?
             if params['amount'].to_i > 99
                 client = Savon.client(
@@ -13,7 +18,7 @@ class ZarinpalController < ActionController::Base
                     "Description" => "درگاه خطابه غدیر و فدک",
                     "Email" => "amvaleh@gmail.com",
                     "Mobile" => "09353954916",
-                    "CallbackURL" => "http://localhost:3000/zarinpal/verify" # صفحه بازگشت از درگاه
+                    "CallbackURL" => "#{callbackurl}/zarinpal/verify" # صفحه بازگشت از درگاه
                 })
                 results = response.body
                 authority = results[:payment_request_response][:authority].sub(/^[0:]*/,"")
