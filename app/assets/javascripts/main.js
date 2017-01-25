@@ -42,7 +42,7 @@
 					}
 				}
 			})
-			.on('+desktop', function() {
+			.on('+desktop +mobile', function() {
 
 				var	$body = $('body'),
 					$main = $('#main'),
@@ -61,9 +61,9 @@
 
 				if (skel.vars.touch) {
 
-					settings.fadeSpeed = 0;
-					settings.resizeSpeed = 0;
-					$nav_links.find('span').remove();
+					settings.fadeSpeed = 100;
+					settings.resizeSpeed = 100;
+					//$nav_links.find('span').remove();
 
 				}
 
@@ -230,7 +230,7 @@
 					$wrapper.fadeTo(400, 1.0);
 
 			})
-			.on('-desktop', function() {
+			.on('-desktop -mobile', function() {
 
 				window.setTimeout(function() {
 					location.reload(true);
