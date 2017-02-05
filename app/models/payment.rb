@@ -1,5 +1,4 @@
 class Payment < ApplicationRecord
-
   include ApplicationHelper
 
   belongs_to :person
@@ -18,23 +17,29 @@ class Payment < ApplicationRecord
     self.reminder.destroy if self.reminder.present?
   end
 
-
   def check_if_done
     if self.payment_status == PaymentStatus.find_by_name("done")
+      self.update_column('payed_at' , Time.now)
       if self.reminder.present?
         # delete reminder
         r = self.reminder
         r.destroy
       end
       # set new payment if payment is for a person
-      if self.person.present?
+      if self.person.present? and self.person.payments.wating.count == 0
         payment = Payment.create do |p|
           p.person = self.person
           p.amount = (self.person.pay_amount.to_i + self.person.id).to_s
           p.deadline = self.deadline + self.person.pay_period.days # later month
         end
-        p= "پرداخت #{self.deadline} شما دریافت شد. التماس دعای فرج."
-        p = p + "موعد پرداخت بعدی شما #{payment.deadline} خواهد بود."
+      end
+      # thanks person with message
+      if self.person.present?
+        p= "پرداخت #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد.\\n"
+        if payment.present?
+          p = p + "موعد پرداخت بعدی شما #{payment.deadline.to_pdate.strftime("%e %b %Y")} خواهد بود."
+        end
+        p = p + "\\n التماس دعای فرج."
         send_msg(self.person,p)
       end
     end
@@ -70,6 +75,12 @@ class Payment < ApplicationRecord
   scope :done, -> { where(payment_status_id: '2') }
   scope :ignored, -> { where(payment_status_id: '3') }
 
+  scope :on_time, lambda { where(["payed_at - deadline < ? ", 1.week]) }
+
+  scope :incoming, -> { where('payment_status_id = ? and deadline >= ?' , PaymentStatus.find_by_name("wating").id , Time.now ) }
+  scope :not_payed, -> { where('payment_status_id = ?' , PaymentStatus.find_by_name("ignored").id ) }
+
+
   def farsi_status
     case self.payment_status_id
     when 1
@@ -77,7 +88,7 @@ class Payment < ApplicationRecord
     when 2
       "پرداخت شده"
     when 3
-      "رد شده"
+      "نادیده گرفته شده"
     end
   end
 end

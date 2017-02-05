@@ -45,7 +45,7 @@
 			.on('+desktop +mobile', function() {
 
 				var	$body = $('body'),
-					$main = $('#main'),
+					$main = $('#main'),r
 					$panels = $main.find('.panel'),
 					$hbw = $('html,body,window'),
 					$footer = $('#footer'),

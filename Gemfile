@@ -39,7 +39,15 @@ gem 'draper', github: 'audionerd/draper', branch: 'rails5'
 gem 'pundit'
 gem "active_material", github: "vigetlabs/active_material"
 gem 'whenever', :require => false
-gem 'active_admin_datetimepicker'
+gem 'formadmin'
+gem 'responsive_active_admin'
+gem 'active_admin_theme'
+gem 'blazer'
+gem 'chartkick', '~> 1.2.4'
+gem 'groupdate', '~> 2.1.1'
+gem 'active_median', '~> 0.1.0'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

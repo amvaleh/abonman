@@ -5,7 +5,7 @@ ActiveAdmin.register City do
   #
   permit_params :name
 
-  menu priority: 6
+  menu label: "شهر ها" ,priority: 4
 
   #
   # or

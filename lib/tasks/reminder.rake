@@ -17,11 +17,11 @@ namespace :reminder do
           send_msg(r.payment.person,p)
           r.alert_times += 1
           # set this reminder on 2 days from now
-          r.sms_date = Time.now + 2.days
+          r.sms_date = Time.now + 1.days
           #
           r.save
         else
-          send_msg(r.payment.person,p)
+          # send_msg(r.payment.person,p)
           # cancel this turn payment
           payment = r.payment
           payment.payment_status_id = 3
@@ -34,7 +34,7 @@ namespace :reminder do
             p.amount = (person.pay_amount.to_i + person.id).to_s
             p.deadline = payment.deadline + person.pay_period.days # later month
           end
-          p = "سلام، شما#{person.payments.ignored.count} آبونه پرداخت نشده دارید. \\n موعد پرداخت بعدی شما #{new_payment.deadline} خواهد بود. \\n درصورت تمایل به انصراف از سامانه آبونه خطابه غدیر و فدک \\n لطفا با شماره ۲۲۳۹۳۸۱۴ تماس حاصل کنید. \\n لینک حساب کاربری شما: http://ab.khetabeghadir.com/#profile \\n شماره موبایل: #{person.mobile_number} \\n رمز عبور: #{person.generate_password}"
+          p = "سلام، \\n #{person.gender.name} #{person.name}، شما#{person.payments.ignored.count} آبونه پرداخت نشده دارید. \\n موعد پرداخت بعدی شما #{new_payment.deadline.to_pdate.strftime("%e %b %Y")} خواهد بود. \\n درصورت تمایل به انصراف از سامانه آبونه خطابه غدیر و فدک \\n لطفا با شماره ۲۲۳۹۳۸۱۴ تماس حاصل کنید. \\n لینک حساب کاربری شما: \\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: #{person.mobile_number} \\n رمز عبور: #{person.generate_password}"
           send_msg(person,p)
         end
       end

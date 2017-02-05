@@ -1401,18 +1401,19 @@
 
 					#me header > h1 {
 						position: absolute;
-						left: 0;
-						bottom: 52.5%;
+						left: 10%;
+						bottom: 65.5%;
 						margin: 0;
 					}
 
 					#me header > p {
 						position: absolute;
 						left: 0;
-						top: 52.5%;
-						font-size: 1.5em;
+						top: 40.5%;
+						font-size: 1em;
 						letter-spacing: -0.015em;
 						margin-top: 0;
+						right: 50%;
 					}
 
 		/* Footer */

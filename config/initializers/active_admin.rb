@@ -132,7 +132,7 @@ ActiveAdmin.setup do |config|
   # config.comments_menu = false
   #
   # You can customize the comment menu:
-  # config.comments_menu = { parent: 'Admin', priority: 1 }
+  config.comments_menu = { label: "نظرات" ,  priority: 10 }
 
   # == Batch Actions
   #
@@ -208,19 +208,20 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-    # config.namespace :admin do |admin|
-    #   admin.build_menu :utility_navigation do |menu|
-    #     menu.add label: "Logout", url: "sss.com"
-    #   end
-    # end
+  config.namespace :admin do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      menu.add label: "سایت", url: "http://ab.khetabeghadir.com"
+      menu.add label: "خروج", url: :destroy_admin_user_session_path
+    end
+  end
   #
   # If you wanted to add a static menu item to the default menu provided:
-
-    # config.namespace :admin do |admin|
-    #   admin.build_menu :default do |menu|
-    #     # menu.add label: "Logout", url: :destroy_admin_user_session_path
-    #   end
-    # end
+  #
+  # config.namespace :admin do |admin|
+  #   admin.build_menu :default do |menu|
+  #     menu.add label: "Logout", url: :destroy_admin_user_session_path
+  #   end
+  # end
 
   # == Download Links
   #

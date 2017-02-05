@@ -20,8 +20,26 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  # date:
+  #   formats:
+  #     long: "%Y-%m-%d"
+  # time:
+  #   formats:
+  #     long: "%Y-%m-%d %H:%M:%S"
   active_admin:
-    dashboard: "dashboard"
+    scope:
+      payment:
+        incoming: "پرداخت های آینده"
+        not_payed: "نادیده گرفته شده ها"
+        done: "پرداخت شده ها"
+      people:
+        men: "آقایان"
+        women: "بانوان"
+        tehran: "شهر تهران"
+        khosh_heshab: "خوش حساب ها"
+        bad_hesab: "بد حساب ها"
+        all: "همه"
+    dashboard: "خانه"
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the default dashboard page."
       call_to_action: "To add dashboard sections, checkout 'app/admin/dashboard.rb'"

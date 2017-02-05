@@ -9,11 +9,54 @@
 
 // Active Admin's got SASS!
 
-
+//
 @import "active_admin/mixins";
 @import "active_admin/base";
-@import "active_admin_datetimepicker";
-// Overriding any non-variable SASS must be done after the fact.
-// For example, to change the default status-tag color:
-//
-// .status_tag { background: green; }
+@import "responsive_active_admin";
+@import "wigu/active_admin_theme";
+
+// @import 'formadmin/formadmin';
+// @import "active_admin_datetimepicker";
+@import "calendar-blue";
+
+@font-face{
+  font-family: 'Iransans';
+  src:url('IRANSans.woff');
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-family: 'Iransans';
+}
+::-moz-placeholder { /* Firefox 19+ */
+  font-family: 'Iransans';
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-family: 'Iransans';
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-family: 'Iransans';
+}
+
+body {
+  font-family: 'Iransans','Source Sans Pro', sans-serif !important;
+}
+a {
+  font-family: 'Iransans','Source Sans Pro', sans-serif !important;
+}
+input {
+  font-family: 'Iransans','Source Sans Pro', sans-serif !important;
+}
+
+.rtl{
+  direction: rtl!important;
+  text-align: center;
+}
+.table_tools_segmented_control li {
+  direction: rtl !important;
+}
+.hidden{
+  display: none;
+}
+#wrapper #header ul.tabs > li > a {
+  font-size: 20px;
+}

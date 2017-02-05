@@ -3,7 +3,7 @@ class Person < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  validates_presence_of [:name,:mobile_number,:pay_period,:pay_start,:pay_amount]
+  validates_presence_of [:name,:mobile_number,:pay_period,:pay_start,:pay_amount,:gender]
 
 
   devise :database_authenticatable, :registerable,
@@ -52,7 +52,7 @@ class Person < ApplicationRecord
   end
 
   def initiate
-    pass = 1_000_000 + Random.rand(10_000_000 - 1_000_000)
+    pass = 1_000 + Random.rand(10_000 - 1_000)
     person = self
     person.password = pass
     person.password_confirmation = pass
@@ -112,14 +112,13 @@ class Person < ApplicationRecord
 
 
   def generate_password
-    pass = 1_000_000 + Random.rand(10_000_000 - 1_000_000)
+    pass = 1_000 + Random.rand(10_000 - 1_000)
     person = self
     person.password = pass
     person.password_confirmation = pass
     person.save
     return pass
   end
-
 
 
   def payment_deadline
@@ -138,5 +137,9 @@ class Person < ApplicationRecord
     false
   end
 
-
+  scope :men, -> { where(gender_id: Gender.find_by_name("آقا").id) }
+  scope :women, -> { where(gender_id: Gender.find_by_name("خانم").id) }
+  scope :tehran, -> { where(city_id: City.find_by_name("تهران").id) }
+  scope :khosh_heshab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
+  scope :bad_hesab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
 end

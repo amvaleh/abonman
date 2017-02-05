@@ -1,0 +1,26 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<h4 style="direction: rtl; text-align: right;">
+  نمودار پرداخت ها بر اساس
+  <B style="font-size: 20px;">
+    روز
+  </B>
+</h4>
+<%= line_chart Payment.all.group_by_day(:payed_at).sum(:amount).map{ |date,sum| [date.to_date.to_pdate.to_s,sum] } %>
+
+<h4 style="direction: rtl; text-align: right;">
+  نمودار پرداخت ها بر اساس
+  <B style="font-size: 20px;">
+    هفته
+  </B>
+</h4>
+
+<%= line_chart Payment.all.group_by_week(:payed_at).sum(:amount).map{ |date,sum| [date.to_date.to_pdate.to_s,sum] } %>
+
+
+<h4 style="direction: rtl; text-align: right;">
+  نمودار پرداخت ها بر اساس
+  <B style="font-size: 20px;">
+    ماه
+  </B>
+</h4>
+<%= line_chart Payment.all.group_by_month(:payed_at).sum(:amount).map{ |date,sum| [date.to_date.to_pdate.to_s,sum] } %>

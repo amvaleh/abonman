@@ -1,0 +1,19 @@
+<script>
+$(document).ready(function() {
+  Calendar.setup({
+    inputField     : document.getElementsByClassName('fa-date')[0].id,   // id of the input field
+    ifFormat       : "%Y-%m-%d",       // format of the input field
+    dateType	   : 'jalali',
+    ifDateType	   : 'gregorian',
+    weekNumbers    : false
+  });
+
+  Calendar.setup({
+    inputField     : document.getElementsByClassName('bd-date')[0].id,   // id of the input field
+    ifFormat       : "%Y-%m-%d",       // format of the input field
+    dateType	   : 'jalali',
+    ifDateType	   : 'gregorian',
+    weekNumbers    : false
+  });
+});
+</script>

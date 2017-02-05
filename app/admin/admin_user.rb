@@ -1,7 +1,7 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
 
-  menu priority: 5
+  menu label: " مدیر" , priority: 8
 
   index do
     selectable_column
