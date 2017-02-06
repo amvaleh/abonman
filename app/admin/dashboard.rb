@@ -14,32 +14,43 @@ ActiveAdmin.register_page "Dashboard" do
       column span: 1 do
         span " "
         panel "مشترکین" , class: "rtl"do
-          columns do
-            column do
-              render partial: "person_charts"
-            end
-          end
-        end
-      end
-      column span: 1 do
-        span " "
-        panel "پرداخت ها" , class: "rtl" do
-          columns do
-            column do
-              render partial: "payment_charts"
-            end
+        columns do
+          column do
+            render partial: "person_charts"
           end
         end
       end
     end
-  end # content
+    column span: 1 do
+      span " "
+      panel "پرداخت ها" , class: "rtl" do
+        columns do
+          column do
+            render partial: "payment_charts"
+          end
+        end
+      end
+    end
+  end
+  columns do
+    column do
+      panel "افراد" , class: "rtl" do
+        columns do
+          column do
+            render partial: "rates_charts"
+          end
+        end
+      end
+    end
+  end
+end # content
 
 
-  # sidebar :help do
-  #   ul do
-  #     li "Second List First Item"
-  #     li "Second List Second Item"
-  #   end
-  # end
+# sidebar :help do
+#   ul do
+#     li "Second List First Item"
+#     li "Second List Second Item"
+#   end
+# end
 
 end

@@ -1,0 +1,4 @@
+<h4 style="direction: rtl; text-align: right;">
+  نمودار نسبت مشترکین از لحاظ سنی:
+</h4>
+<%= column_chart Person.with_birthday.group("people.birthdate").count.map{|bd, count| [ "#{(Time.now.year - bd.year).to_s}" , count] } , colors: [ '#5ea3d3'] %>
