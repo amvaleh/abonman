@@ -59,7 +59,7 @@ ActiveAdmin.register Person do
       p.city
     end
     row "تاریخ تولد" do |p|
-      p.birthdate.to_pdate.strftime("%A %d %b %Y")
+      p.birthdate.to_pdate.strftime("%A %d %b %Y") if p.birthdate.present?
     end
     row "شروع دوره" do |p|
       p.pay_start.to_pdate.strftime("%A %d %b %Y")
