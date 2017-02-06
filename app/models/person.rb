@@ -68,6 +68,10 @@ class Person < ApplicationRecord
     p = "\"#{self.name} محترم \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number}  رمز عبور شما: #{pass} یا علی.\""
     puts p
     res = `#{telegram_cli} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{p}'`
+    if person.email_address.present?
+      puts p
+      email = ServiceMailer.send_email(person.email_address,p).deliver_now
+    end
     puts res
   end
 

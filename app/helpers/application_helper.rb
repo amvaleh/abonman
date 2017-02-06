@@ -3,7 +3,6 @@ module ApplicationHelper
   def send_msg(person,msg)
     if person.email_address.present?
       puts msg
-      puts "HHHAAABBBCCCDDD"
       email = ServiceMailer.send_email(person.email_address,msg).deliver_now
     end
     contact_name = person.name.gsub(" ", "_")
