@@ -146,4 +146,7 @@ class Person < ApplicationRecord
   scope :tehran, -> { where(city_id: City.find_by_name("تهران").id) }
   scope :khosh_heshab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
   scope :bad_hesab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
+
+
+  scope :with_birthday , -> { where("birthdate <> ''")}
 end
