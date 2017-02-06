@@ -22,7 +22,7 @@ ActiveAdmin.register Payment do
     column "وضعیت پرداخت" do |p|
       p.farsi_status
     end
-    column "کد پیگیری پرداخت اینترنتی" do |p|
+    column "شناسه پیگیری پرداخت اینترنتی" do |p|
       p.uid
     end
     column "موعد پرداخت" do |p|
@@ -43,6 +43,9 @@ ActiveAdmin.register Payment do
     f.actions
   end
 
+  filter :payment_status , label: "وضعیت پرداخت"
+  filter :amount , label: "مبلغ - تومان"
+  # filter :amount , label: "مبلغ - تومان"
 
 
   # See permitted parameters documentation:

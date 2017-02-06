@@ -110,7 +110,7 @@ class ZarinpalController < ActionController::Base
               payment.payment_status = PaymentStatus.find_by_name("done") # sending Regards to user and setting next turn payment
               payment.save
             end
-            redirect_to root_path , :notice => "تراکنش با موفقیت انجام شد . کد پیگیری : #{ref_id}"
+            redirect_to root_path , :notice => "تراکنش با موفقیت انجام شد . شناسه پیگیری : #{authority}"
           end
         else
           redirect_to root_path , :alert => "خطای امنیتی."
