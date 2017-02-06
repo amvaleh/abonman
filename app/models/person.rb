@@ -148,5 +148,5 @@ class Person < ApplicationRecord
   scope :bad_hesab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
 
 
-  scope :with_birthday , -> { where("birthdate <> ''")}
+  scope :with_birthday , -> { where("birthdate is not null")}
 end
