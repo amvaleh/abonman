@@ -11,6 +11,7 @@ module ApplicationHelper
     msg = "\"#{msg}\""
     puts msg
     res2 = `#{telegram_path} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{msg}'`
+    puts res2
   end
 
   def telegram_path

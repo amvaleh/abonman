@@ -73,7 +73,7 @@ class ZarinpalController < ActionController::Base
           authority = params[:Authority].sub(/^[0:]*/,"") # removing leading zeros coming from paypal
           if status.to_i < 100
             if Payment.where(:uid => authority , :person_id => nil).any?
-              # delete no person payment with authority
+              # delete no-person payment with authority
               payment = Payment.find_by_uid(authority)
               reminder = payment.reminder
               reminder.destroy
@@ -108,6 +108,7 @@ class ZarinpalController < ActionController::Base
                 end
               end
               payment.payment_status = PaymentStatus.find_by_name("done") # sending Regards to user and setting next turn payment
+              # payment ref_id save here
               payment.save
             end
             redirect_to root_path , :notice => "تراکنش با موفقیت انجام شد . شناسه پیگیری : #{authority}"
