@@ -13,7 +13,7 @@ namespace :reminder do
         # here we should send sms and stuff
         case r.alert_times
         when 0 , 1 , 2 , 3
-          p = "سلام، \\n #{person.gender.name} #{person.name}، \\n لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را برای آبونه خطابه غدیر و فدک به شماره حساب ۱۲۱۲۳۳ بانک پاسارگاد واریز نمایید. \\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید. \\n  http://ab.khetabeghadir.com?p=#{r.payment.person.id}#aboneh"
+          p = "سلام، \\n #{r.payment.person.gender.name} #{r.payment.person.name}، \\n لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را برای آبونه خطابه غدیر و فدک به شماره حساب ۱۲۱۲۳۳ بانک پاسارگاد واریز نمایید. \\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید. \\n  http://ab.khetabeghadir.com?p=#{r.payment.person.id}#aboneh"
           send_msg(r.payment.person,p)
           r.alert_times += 1
           # set this reminder on 2 days from now
