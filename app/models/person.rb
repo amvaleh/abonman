@@ -126,6 +126,7 @@ class Person < ApplicationRecord
 
 
   def payment_deadline
+    # ًTODO : calculate number of payments, then set the deadline
     self.pay_start + self.pay_period.days #later should be month
   end
 

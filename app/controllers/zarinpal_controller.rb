@@ -71,7 +71,7 @@ class ZarinpalController < ActionController::Base
           status = results[:payment_verification_response][:status]
           ref_id = results[:payment_verification_response][:ref_id]
           authority = params[:Authority].sub(/^[0:]*/,"") # removing leading zeros coming from paypal
-          if status.to_i < 100
+          if status.to_i < 100 # it is not verified!
             if Payment.where(:uid => authority , :person_id => nil).any?
               # delete no-person payment with authority
               payment = Payment.find_by_uid(authority)
@@ -85,7 +85,7 @@ class ZarinpalController < ActionController::Base
               payment.save
             end
             redirect_to root_path , :alert => "تراکنش از طرف کاربر متوقف شد"
-          else
+          else # payment was verified
             if Payment.where(:uid => authority).any?
               # this payment is recognized, updating it:
               payment = Payment.find_by_uid(authority)
@@ -101,7 +101,7 @@ class ZarinpalController < ActionController::Base
                       remain_amount = remain_amount - ignored_amount
                       ignored_payment.update_column('payment_status_id' , PaymentStatus.find_by_name("done").id)
                       ignored_payment.update_column('payed_at' , Time.now)
-                      ignored_payment.update_column('uid' , authority)
+                      ignored_payment.update_column('uid' , ref_id)
                       # resid??
                     end
                   end
@@ -109,9 +109,11 @@ class ZarinpalController < ActionController::Base
               end
               payment.payment_status = PaymentStatus.find_by_name("done") # sending Regards to user and setting next turn payment
               # payment ref_id save here
+              payment.uid = ref_id
+              # saved
               payment.save
             end
-            redirect_to root_path , :notice => "تراکنش با موفقیت انجام شد . شناسه پیگیری : #{authority}"
+            redirect_to root_path , :notice => "تراکنش با موفقیت انجام شد . شناسه پیگیری : #{ref_id}"
           end
         else
           redirect_to root_path , :alert => "خطای امنیتی."
