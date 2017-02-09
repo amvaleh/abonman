@@ -65,7 +65,7 @@ class Person < ApplicationRecord
     puts contact_name2
     res = `#{telegram_cli} -W -e 'add_contact +98#{self.mobile_number}  #{contact_name2}'`
     puts res
-    p = "\"#{self.name} محترم \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number}  رمز عبور شما: #{pass} یا علی.\""
+    p = "\"#{self.gender_fa} #{self.name} \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number} \\n  رمز عبور شما: #{pass} \\n یا علی.\""
     puts p
     res = `#{telegram_cli} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{p}'`
     if person.email_address.present?
@@ -139,6 +139,15 @@ class Person < ApplicationRecord
 
   def email_changed?
     false
+  end
+
+  def gender_fa
+    case self.gender.name
+    when "آقا"
+      "جناب آقای "
+    when "خانم"
+      "سرکار خانم"
+    end
   end
 
   scope :men, -> { where(gender_id: Gender.find_by_name("آقا").id) }

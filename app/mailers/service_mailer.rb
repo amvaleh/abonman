@@ -6,5 +6,4 @@ class ServiceMailer < ApplicationMailer
     res = mail(:to => @email ,:subject => "آبونمان خطابه غدیر و فدک" , :content_type => "text/html")
     puts res
   end
-
 end

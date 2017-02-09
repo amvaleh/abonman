@@ -5,7 +5,7 @@
 set :output, "log/cron.log"
 
 
- every 1.minute do
+ every 10.minute do
     rake "reminder:explore"
  end
 

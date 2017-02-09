@@ -1,41 +1,121 @@
-<p style="direction: rtl; color: #283454; font-size: 18px;">
-<%= @msg.gsub(/\\n/, '<br/>').html_safe %>
-<p>
-<!-- <div id="page" style="direction: rtl;">
-  <header id="header">
-    <div class="container">
-      <span class="food-name">رمز عبور جدید</span>
-    </div>
-  </header>
-  <section id="login" class="users">
-    <div class="container">
-      <form>
-        <div class="form-group">
-          <p>
-            رمز عبور شما در سامانه منوچی تغییر داده شد.
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            رمز عبور جدید:
-            <%= @pass %>
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            برای حفظ امنیت حساب کاربری خود بعد از ورود به حساب رمز عبور خود را تغییر دهید.
-          </p>
-        </div>
-        <div class="form-group">
-          <p>
-            با تشکر - menochi.com
-          </p>
-        </div>
-        <%= link_to "http://menochi.com/users/sign_in" do %>
-        ورود
-        <i class="fa fa-angle-left"></i>
-        <% end %>
-      </form>
-    </div>
-  </section>
-</div> -->
+<style>
+@font-face{
+  font-family: 'Iransans';
+  src:url('IRANSans.woff') format('woff');
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Iransans' !important;
+}
+a{
+  font-family: 'Iransans' !important;
+}
+
+html { -webkit-text-size-adjust:none; -ms-text-size-adjust: none;}
+@media only screen and (max-device-width: 680px), only screen and (max-width: 680px) {
+  *[class="table_width_100"] {
+    width: 96% !important;
+  }
+  *[class="border-right_mob"] {
+    border-right: 1px solid #dddddd;
+  }
+  *[class="mob_100"] {
+    width: 100% !important;
+  }
+  *[class="mob_center"] {
+    text-align: center !important;
+  }
+  *[class="mob_center_bl"] {
+    float: none !important;
+    display: block !important;
+    margin: 0px auto;
+  }
+  .iage_footer a {
+    text-decoration: none;
+    color: #929ca8;
+  }
+  img.mob_display_none {
+    width: 0px !important;
+    height: 0px !important;
+    display: none !important;
+  }
+  img.mob_width_50 {
+    width: 40% !important;
+    height: auto !important;
+  }
+}
+.table_width_100 {
+  width: 680px;
+}
+</style>
+<div id="mailsub" class="notification" align="center">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="min-width: 320px;"><tr><td align="center" bgcolor="#eff3f8">
+    <table border="0" cellspacing="0" cellpadding="0" class="table_width_100" width="100%" style="max-width: 680px; min-width: 300px;">
+      <tr><td>
+      </td></tr>
+      <tr><td align="center" bgcolor="#ffffff">
+        <table width="90%" border="0" cellspacing="0" cellpadding="0"><div style="height: 30px; line-height: 30px; font-size: 10px;"></div>
+          <tr><td align="center">
+            <a href="http://ab.khetabeghadir.com" target="_blank" style="color: #596167; font-family: Iransans; float:left; width:100%; padding:20px;text-align:center; font-size: 13px;">
+              <font face="Arial, Helvetica, sans-seri; font-size: 13px;" size="3" color="#596167">
+                <img src="http://ab.khetabeghadir.com/assets/me-f2886563be3f59cd9161b3e2b2ee6eac44a4c4acb8492038b845e7641c0292e3.jpg" width="50%" alt="Metronic" border="0"  /></font></a>
+              </td>
+              <td align="right">
+              </td>
+            </tr>
+          </table>
+        </td></tr>
+        <!--header END-->
+
+        <!--content 1 -->
+        <tr><td align="center" bgcolor="#fbfcfd">
+          <table width="90%" border="0" cellspacing="0" cellpadding="0">
+            <tr><td align="center" style="direction: rtl;" >
+              <!-- padding --><div style="height: 60px; line-height: 60px; font-size: 10px;"></div>
+              <div style="line-height: 44px;">
+                <font face="Iransans" size="5" color="#57697e" style="font-size: 34px;">
+                  <span style="font-family: Iransans; font-size: 34px; color: #57697e; direction: rtl;">
+                    همیار آبونمان خطابه غدیر و فدک
+                  </span></font>
+                </div>
+                <!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"></div>
+              </td></tr>
+              <tr><td align="center" style="direction: rtl;">
+                <div style="line-height: 24px;">
+                  <font face="Iransans" size="4" color="#57697e" style="font-size: 15px;">
+                    <span style="font-family: Iransans; font-size: 15px; color: #57697e; direction: rtl;">
+                      <%= @msg.gsub(/\\n/, '<br/>').html_safe %>
+                    </span></font>
+                  </div>
+                  <!-- padding --><div style="height: 40px; line-height: 40px; font-size: 10px;"></div>
+                </td></tr>
+                <tr><td align="center">
+                  <div style="line-height: 24px;">
+                    <a href="http://ab.khetabeghadir.com/#profile" target="_blank" class="btn btn-danger block-center">
+                      حساب کاربری همیار من
+                    </a>
+                  </div>
+                  <!-- padding --><div style="height: 60px; line-height: 60px; font-size: 10px;"></div>
+                </td></tr>
+              </table>
+            </td></tr>
+            <!--content 1 END-->
+            <!--footer -->
+            <tr><td class="iage_footer" align="center" bgcolor="#ffffff">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr><td align="center" style="padding:20px;flaot:left;width:100%; text-align:center;">
+                  <font face="Iransans" size="3" color="#96a5b5" style="font-size: 13px;  ">
+                    <span style="font-family: Iransans; font-size: 13px; color: #96a5b5; ">
+                      2017 © khetabeghadir.com ALL Rights Reserved.
+                    </span>
+                  </font>
+                  </td></tr>
+                </table>
+              </td></tr>
+              <tr><td>
+              </td></tr>
+            </table>
+      </td></tr>
+    </table>

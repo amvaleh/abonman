@@ -46,6 +46,8 @@ gem 'blazer'
 gem 'chartkick', '~> 1.2.4'
 gem 'groupdate', '~> 2.1.1'
 gem 'active_median', '~> 0.1.0'
+gem 'premailer-rails'
+gem 'nokogiri'
 
 
 group :development, :test do
