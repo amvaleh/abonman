@@ -7,6 +7,9 @@ ActiveAdmin.register City do
 
   menu label: "شهر ها" ,priority: 4
 
+  index :title => 'شهر ها'  do
+    selectable_column
+  end
   #
   # or
   #

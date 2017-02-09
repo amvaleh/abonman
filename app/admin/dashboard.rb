@@ -11,27 +11,28 @@ ActiveAdmin.register_page "Dashboard" do
     end
 
     columns do
-      column span: 1 do
-        span " "
-        panel "مشترکین" , class: "rtl"do
-        columns do
-          column do
-            render partial: "person_charts"
+      column do
+        panel "پرداخت ها" , class: "rtl" do
+          columns do
+            column do
+              render partial: "payment_charts"
+            end
           end
         end
       end
     end
-    column span: 1 do
+
+    columns do
       span " "
-      panel "پرداخت ها" , class: "rtl" do
-        columns do
-          column do
-            render partial: "payment_charts"
-          end
+      panel "مشترکین" , class: "rtl"do
+      columns do
+        column class: "box" do
+          render partial: "person_charts"
         end
       end
     end
   end
+
   columns do
     column do
       panel "افراد" , class: "rtl" do

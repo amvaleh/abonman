@@ -13,9 +13,8 @@ ActiveAdmin.register Person do
   scope proc{ I18n.t'active_admin.scope.people.women'} , :women
   scope proc{ I18n.t'active_admin.scope.people.tehran'}, :tehran
   scope proc{ I18n.t'active_admin.scope.people.khosh_heshab'}, :khosh_heshab
-  scope proc{I18n.t'active_admin.scope.people.bad_hesab'} , :bad_hesab
 
-  index do
+  index :title => 'مشترکین' do
     render "person_index"
     selectable_column
     column :id
@@ -115,7 +114,7 @@ filter :phone_number, label: "شماره ثابت"
 filter :mobile_number, label: "شماره موبایل"
 filter :email_address, label: "پست الکترونیکی"
 # filter :pay_start ,  as: :numeric
-filter :birthdate ,  as: :numeric , label: "تاریخ تولد"
+filter :birthdate , label: "تاریخ تولد"
 filter :name, label: "نام مشترک"
 filter :gender, label: "جنسیت"
 filter :city, label: "شهر سکونت"

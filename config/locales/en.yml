@@ -70,6 +70,8 @@ en:
         ends_with: "تمام می شود با"
         greater_than: "بزرگتر از"
         less_than: "کوچکتر از"
+        gteq_date: "شروع از"
+        lteq_date: "تا پایان"
     search_status:
       headline: "نتایج جستجو"
       current_scope: "Scope:"

@@ -7,7 +7,9 @@ ActiveAdmin.register Reminder do
   #
   permit_params :sms_status_id, :payment_id, :sms_date , :alert_times
 
-  index do
+  config.filters = false
+
+  index :title => 'یادآورها'  do
     selectable_column
     column :id
     column "تاریخ ارسال پیامک" do |r|

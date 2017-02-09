@@ -1,14 +1,23 @@
-
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<div style="width:30%">
 <h4 style="direction: rtl; text-align: right;">
   نمودار نسبت مشترکین آقا و خانم:
 </h4>
 <%= pie_chart Person.all.joins(:gender).group("genders.name").count %>
+</div>
+
+<div style="width:30%">
+
 <h4 style="direction: rtl; text-align: right;">
   نمودار نسبت مشترکین شهر ها:
 </h4>
 <%= pie_chart Person.all.joins(:city).group("cities.name").count %>
+</div>
+
+<div style="width:30%">
+
 <h4 style="direction: rtl; text-align: right;">
   نمودار نسبت مشترکین در دوره پرداخت:
 </h4>
 <%= pie_chart Person.group(:pay_period).count %>
+</div>

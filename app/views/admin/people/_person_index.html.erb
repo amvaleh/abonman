@@ -1,22 +1,28 @@
 <script>
 $(document).ready(function() {
   Calendar.setup({
-    inputField     : document.getElementById('q_birthdate'),   // id of the input field
+    inputField     : document.getElementById('q_birthdate_gteq_date'),   // id of the input field
     ifFormat       : "%Y-%m-%d",       // format of the input field
     dateType	   : 'jalali',
     ifDateType	   : 'gregorian',
     weekNumbers    : false
   });
+  c = $("#q_birthdate_gteq_date").removeClass("datepicker");
+  c.removeClass("datepicker");
 });
 
-// $(document).ready(function() {
-//   Calendar.setup({
-//     inputField     : document.getElementById('q_pay_start'),   // id of the input field
-//     ifFormat       : "%Y-%m-%d",       // format of the input field
-//     dateType	   : 'jalali',
-//     ifDateType	   : 'gregorian',
-//     weekNumbers    : false
-//   });
-// });
+$(document).ready(function() {
+  Calendar.setup({
+    inputField     : document.getElementById('q_birthdate_lteq_date'),   // id of the input field
+    ifFormat       : "%Y-%m-%d",       // format of the input field
+    dateType	   : 'jalali',
+    ifDateType	   : 'gregorian',
+    weekNumbers    : false
+  });
+  c = $("#q_birthdate_lteq_date").removeClass("datepicker");
+  c.removeClass("datepicker");
+});
 
-</script> 
+
+
+</script>

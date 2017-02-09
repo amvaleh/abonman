@@ -3,7 +3,7 @@ ActiveAdmin.register AdminUser do
 
   menu label: " مدیر" , priority: 8
 
-  index do
+  index :title => 'مدیران' do
     selectable_column
     id_column
     column :email
