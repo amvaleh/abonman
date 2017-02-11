@@ -35,11 +35,11 @@ class Payment < ApplicationRecord
       end
       # thanks person with message
       if self.person.present?
-        p= "پرداخت #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد.\\\\n"
+        p= "پرداخت #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد."
         if payment.present?
           p = p + "موعد پرداخت بعدی شما #{payment.deadline.to_pdate.strftime("%e %b %Y")} خواهد بود."
         end
-        p = p + "\\\\n التماس دعای فرج."
+        p = p + "التماس دعای فرج."
         # byebug
         send_msg(self.person,p)
       end
