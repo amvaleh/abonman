@@ -11,11 +11,13 @@ module ApplicationHelper
     contact_name2 = contact_name + " " + person.pay_period.to_s + "mah"
     # res1 = `#{telegram_path}  -W -e 'contact_list'`
     # res1 = `#{telegram_path} -W -e 'add_contact +98#{person.mobile_number} #{contact_name2}'`
+    logger.info(msg)
     msg = "\"#{msg}\""
     puts msg
     puts contact_name
     puts contact_name2
     puts contact_name2.gsub(" ", "_")
+    logger.info(contact_name2.gsub(" ", "_"))
     # res2 = `#{telegram_path} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{msg}'`
     res2 = `(echo "contact_list"; echo "add_contact +98#{person.mobile_number} #{contact_name2}"; sleep 5; echo 'msg #{contact_name2.gsub(" ", "_")} #{msg}') | #{telegram_path} -W`
     logger.info(res2)
@@ -23,11 +25,11 @@ module ApplicationHelper
   end
 
   def telegram_path
-    if Rails.env.production?
-      "/home/deploy/tg/bin/telegram-cli -k /home/deploy/tg/server.pub"
-    else
+    # if Rails.env.production?
+      # "/home/deploy/tg/bin/telegram-cli -k /home/deploy/tg/server.pub"
+    # else
       "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli -k /Users/amirmahdi/Documents/telegram-cli/tg/server.pub"
-    end
+    # end
   end
 
   def resource_name
