@@ -18,6 +18,7 @@ module ApplicationHelper
     puts contact_name2.gsub(" ", "_")
     # res2 = `#{telegram_path} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{msg}'`
     res2 = `(echo "contact_list"; echo "add_contact +98#{person.mobile_number} #{contact_name2}"; sleep 5; echo 'msg #{contact_name2.gsub(" ", "_")} #{msg}') | #{telegram_path} -W`
+    logger.info(res2)
     puts res2
   end
 
