@@ -40,7 +40,7 @@ class Payment < ApplicationRecord
           p = p + "موعد پرداخت بعدی شما #{payment.deadline.to_pdate.strftime("%e %b %Y")} خواهد بود."
         end
         p = p + "\\\\n التماس دعای فرج."
-        byebug
+        # byebug
         send_msg(self.person,p)
       end
     end
