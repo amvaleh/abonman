@@ -1,15 +1,12 @@
 class Person < ApplicationRecord
   include ApplicationHelper
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of [:name,:mobile_number,:pay_period,:pay_start,:pay_amount,:gender]
 
-
   devise :database_authenticatable, :registerable,
   :rememberable, :trackable,
   :authentication_keys => [:mobile_number]
-
 
   validates_uniqueness_of :mobile_number
   scope :two, -> { where(pay_period: '2') }
@@ -27,7 +24,6 @@ class Person < ApplicationRecord
   def destroy_payments
     self.payments.destroy_all
   end
-
 
   def set_payment
     payment = Payment.new
@@ -56,7 +52,7 @@ class Person < ApplicationRecord
     person.password_confirmation = pass
     puts pass
     person.save
-    p = "#{self.gender_fa} #{self.name} \\\\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\\\n http://ab.khetabeghadir.com/#profile \\\\n شماره موبایل: \\\\n #{person.mobile_number} \\\\n  رمز عبور شما: #{pass} \\\\n یا علی."
+    p = "سلام،#{self.gender_fa} #{self.name} \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number} \\n  رمز عبور شما: #{pass} \\n یا علی."
     send_msg(person,p)
   end
 
@@ -127,7 +123,9 @@ class Person < ApplicationRecord
   scope :tehran, -> { where(city_id: City.find_by_name("تهران").id) }
   scope :khosh_heshab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
   scope :bad_hesab , -> { joins(:payments).where(%q{payed_at - deadline < interval '1 week'} ).distinct }
-
-
   scope :with_birthday , -> { where("birthdate is not null")}
+
+
+
+
 end

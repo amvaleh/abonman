@@ -14,14 +14,13 @@ namespace :reminder do
         case r.alert_times
         when 0 , 1 , 2 , 3
           p = "سلام، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، \\\\n لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را برای آبونه خطابه غدیر و فدک به شماره حساب ۱۲۱۲۳۳ بانک پاسارگاد واریز نمایید. \\\\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید. \\\\n  http://ab.khetabeghadir.com?p=#{r.payment.person.id}#aboneh"
-          send_msg(r.payment.person,p)
+          send_cron_msg(r.payment.person,p)
           r.alert_times += 1
           # set this reminder on 2 days from now
           r.sms_date = Time.now + 1.days
           #
           r.save
         else
-          # send_msg(r.payment.person,p)
           # cancel this turn payment
           payment = r.payment
           payment.payment_status_id = 3
@@ -35,7 +34,7 @@ namespace :reminder do
             p.deadline = payment.deadline + person.pay_period.days # later month
           end
           p = "سلام، \\\\n #{person.gender_fa} #{person.name}، شما#{person.payments.ignored.count} آبونه پرداخت نشده دارید. \\\\n موعد پرداخت بعدی شما #{new_payment.deadline.to_pdate.strftime("%e %b %Y")} خواهد بود. \\\\n درصورت تمایل به انصراف از سامانه آبونه خطابه غدیر و فدک \\\\n لطفا با شماره ۲۲۳۹۳۸۱۴ تماس حاصل کنید. \\\\n لینک حساب کاربری شما: \\\\n http://ab.khetabeghadir.com/#profile \\\\n شماره موبایل: #{person.mobile_number} \\\\n رمز عبور: #{person.generate_password}"
-          send_msg(person,p)
+          send_cron_msg(person,p)
         end
       end
     end
