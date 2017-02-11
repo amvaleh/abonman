@@ -22,8 +22,6 @@ class Person < ApplicationRecord
 
   after_update :update_payment
 
-  after_save :hi_telegram_contact
-
   before_destroy :destroy_payments
 
   def destroy_payments
@@ -58,35 +56,8 @@ class Person < ApplicationRecord
     person.password_confirmation = pass
     puts pass
     person.save
-    telegram_cli = telegram_path
-    contact_name = self.name
-    contact_name = contact_name.gsub(" ", "_")
-    contact_name2 = contact_name + " " + self.pay_period.to_s + "mah"
-    puts contact_name2
-    res = `#{telegram_cli} -W -e 'add_contact +98#{self.mobile_number}  #{contact_name2}'`
-    puts res
-    p = "\"#{self.gender_fa} #{self.name} \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number} \\n  رمز عبور شما: #{pass} \\n یا علی.\""
-    puts p
-    res = `#{telegram_cli} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{p}'`
-    if person.email_address.present?
-      puts p
-      email = ServiceMailer.send_email(person.email_address,p).deliver_now
-    end
-    puts res
-  end
-
-  def hi_telegram_contact
-    # telegram_cli = "/Users/amirmahdi/Documents/telegram-cli/tg/bin/telegram-cli"
-    # contact_name = self.name
-    # contact_name = contact_name.gsub(" ", "_")
-    # contact_name2 = contact_name + " " + self.pay_period.to_s + "mah"
-    # puts contact_name2
-    # res = `#{telegram_cli} -W -e 'add_contact +98#{self.mobile_number}  #{contact_name2}'`
-    # puts res
-    # p = "\"#{self.name} محترم \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n  یا علی.\""
-    # puts p
-    # res = `#{telegram_cli} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{p}'`
-    # puts res
+    p = "#{self.gender_fa} #{self.name} \\\\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\\\n http://ab.khetabeghadir.com/#profile \\\\n شماره موبایل: \\\\n #{person.mobile_number} \\\\n  رمز عبور شما: #{pass} \\\\n یا علی."
+    send_msg(person,p)
   end
 
   def not_payed_turns
