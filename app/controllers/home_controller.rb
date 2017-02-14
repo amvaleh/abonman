@@ -20,5 +20,16 @@ class HomeController < ApplicationController
       @person = current_person
     end
   end
+  def redirect
+    if params[:id].present? and Person.where(:id => params[:id]).any?
+      redirect_to "http://ab.khetabeghadir.com?p=#{params[:id]}#aboneh"
+    else
+      redirect_to root_path , alert: "شماره یکتا اشتباه است."
+    end
+  end
+
+  def profile
+    redirect_to "http://ab.khetabeghadir.com?#profile"
+  end
 
 end

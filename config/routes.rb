@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   match '/pay' => 'zarinpal#pay', via: :post
   match '/pay' => 'zarinpal#pay', via: :get
   get 'zarinpal/:id' => 'zarinpal#verify'
-
+  get '/profile' => 'home#profile'
+  get '/:id' => 'home#redirect'
 
 end

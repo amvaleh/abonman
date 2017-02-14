@@ -52,7 +52,7 @@ class Person < ApplicationRecord
     person.password_confirmation = pass
     puts pass
     person.save
-    p = "سلام،#{self.gender_fa} #{self.name} \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/#profile \\n شماره موبایل: \\n #{person.mobile_number} \\n  رمز عبور شما: #{pass} \\n یا علی."
+    p = "سلام،#{self.gender_fa} #{self.name} \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/profile \\n شماره موبایل: \\n #{person.mobile_number} \\n  رمز عبور شما:  \\n #{pass} \\n یا علی."
     send_msg(person,p)
   end
 
