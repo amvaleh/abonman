@@ -67,9 +67,9 @@ class Person < ApplicationRecord
   def need_to_pay # wating and ignored
     total = 0
     self.payments.need_to_pay.each do |p|
-      total = total + p.amount
+      total = total + (p.amount.to_i - self.id.to_i)
     end
-    return total
+    return (total+self.id.to_i)
   end
 
 

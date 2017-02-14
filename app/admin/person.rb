@@ -55,7 +55,7 @@ ActiveAdmin.register Person do
       p.gender
     end
     row "شهر سکونت" do |p|
-      p.city
+      "#{p.city.state}" + " - " + "#{p.city.name}"
     end
     row "تاریخ تولد" do |p|
       p.birthdate.to_pdate.strftime("%A %d %b %Y") if p.birthdate.present?
@@ -95,7 +95,7 @@ form do |f|
     f.input :mobile_number , label: "شماره موبایل"
     f.input :phone_number , label: "شماره ثابت"
     f.input :gender , label: "جنسیت"
-    f.input :city , label: "شهر سکونت"
+    f.input :city , label: "شهر سکونت" , :as => :select, :collection => City.all.order("state").collect {|o| ["#{o.state}-#{o.name}", o.id]}
     f.input :birthdate , :as => :string, :input_html => {:class => 'bd-date'} , label: "تاریخ تولد"
     f.input :pay_start , :as => :string, :input_html => {:class => 'fa-date'}, label: "تاریخ شروع دوره"
     f.input :pay_period , label: "دوره پرداخت"
@@ -118,7 +118,7 @@ filter :birthdate , label: "تاریخ تولد"
 filter :name, label: "نام مشترک"
 filter :gender, label: "جنسیت"
 filter :city, label: "شهر سکونت"
-
+filter :city_state , label: "استان" , :as => :select, :collection => City.all.order("state").distinct.pluck(:state)
 
 # filter :city_id
 # filter :pay_amount,as: :string
