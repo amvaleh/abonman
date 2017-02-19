@@ -1,3 +1,4 @@
+<div style="direction:rtl !important;">
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <h4 style="direction: rtl; text-align: right;">
   نمودار پرداخت ها بر اساس
@@ -5,7 +6,7 @@
     روز
   </B>
 </h4>
-<%= line_chart Payment.all.group_by_day(:payed_at).sum(:amount).map{ |date,sum| [date.to_date.to_pdate.to_s,sum] } %>
+<%= column_chart Payment.all.group_by_day("payed_at").sum(:amount).map{ |date,sum| [date.to_date.to_pdate.strftime(" %e - %b").to_s,sum] }, download: true, colors: [ '#6d2222']  %>
 
 <h4 style="direction: rtl; text-align: right;">
   نمودار پرداخت ها بر اساس
@@ -14,7 +15,7 @@
   </B>
 </h4>
 
-<%= line_chart Payment.all.group_by_week(:payed_at).sum(:amount).map{ |date,sum| [date.to_date.to_pdate.to_s,sum] } %>
+<%= column_chart Payment.all.group_by_week("payed_at").sum(:amount).map{ |date,sum| [date.to_date.to_pdate.strftime("%b - %e").to_s,sum] }, download: true, colors: [ '#226d2b'] %>
 
 
 <h4 style="direction: rtl; text-align: right;">
@@ -23,4 +24,6 @@
     ماه
   </B>
 </h4>
-<%= line_chart Payment.all.group_by_month(:payed_at).sum(:amount).map{ |date,sum| [date.to_date.to_pdate.to_s,sum] } %>
+<%= column_chart Payment.all.group_by_month("payed_at").sum("amount").map{ |date,sum| [date.to_date.to_pdate.strftime("%b").to_s,sum] }, download: true, colors: [ '#22436d'] %>
+
+</div>

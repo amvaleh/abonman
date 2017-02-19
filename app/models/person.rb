@@ -14,6 +14,7 @@ class Person < ApplicationRecord
   belongs_to :city
   belongs_to :gender
   has_many :payments
+  has_many :short_messages
 
   after_create :set_payment , :initiate
 

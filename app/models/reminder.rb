@@ -4,8 +4,6 @@ class Reminder < ApplicationRecord
   belongs_to :payment
 
 
-
-
   def check
     puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 00000000000000 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
     # Reminder.all.each do |r|

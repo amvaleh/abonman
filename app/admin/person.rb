@@ -7,7 +7,6 @@ ActiveAdmin.register Person do
 
   menu label: "مشترکین" , priority: 2
 
-
   scope proc{ I18n.t'active_admin.scope.people.all'}, :all
   scope proc{ I18n.t'active_admin.scope.people.men'}, :men
   scope proc{ I18n.t'active_admin.scope.people.women'} , :women

@@ -13,6 +13,7 @@ module ApplicationHelper
     client = Savon.client(wsdl: "http://mihansmscenter.com/webservice/?wsdl")
     text = msg.gsub("\\n", "\n")
     response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
+    ShortMessage.create!(:person => person , :content=> text, :response=> response.body[:send_response][:status_message])
     #
     # send telegram
     contact_name = person.name.gsub(" ", "_")
