@@ -1,4 +1,3 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "admin@menochi.ir"
-
+  default from: "ab@khetabeghadir.com"
 end
