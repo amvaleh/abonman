@@ -80,4 +80,8 @@ module ApplicationHelper
    @devise_mapping ||= Devise.mappings[:person]
  end
 
+ def group_by_criteria
+  created_at.to_date.to_pdate.to_s(:db)
+end
+
 end

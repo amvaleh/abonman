@@ -1,4 +1,4 @@
 <h4 style="direction: rtl; text-align: right;">
 نمودار تعداد پیامک های کوتاه ارسال شده در ماه
 </h4>
-<%= column_chart ShortMessage.all.group_by_month("created_at").count.map{ |date,sum| [date.to_date.to_pdate.strftime("%b").to_s ,sum] } , colors: [ '#11a91d'] %>
+<%= column_chart ShortMessage.all.group_by_week(:created_at).count.map{ |date,sum| [date.to_date.to_pdate.strftime("%b").to_s ,sum] } , colors: [ '#11a91d'] %>

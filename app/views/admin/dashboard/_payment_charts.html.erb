@@ -24,6 +24,6 @@
     ماه
   </B>
 </h4>
-<%= column_chart Payment.all.group_by_month("payed_at").sum("amount").map{ |date,sum| [date.to_date.to_pdate.strftime("%b").to_s,sum] }, download: true, colors: [ '#22436d'] %>
+<%= column_chart Payment.all.group_by_month("payments.payed_at").sum("amount").map{ |date,sum| [date.to_date.to_pdate.strftime("%b").to_s,sum] }, download: true, colors: [ '#22436d'] %>
 
 </div>
