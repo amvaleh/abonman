@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
+  include ApplicationHelper
+
   def home
     # redirect_to admin_dashboard_path
     if params[:p].present?
@@ -30,6 +32,25 @@ class HomeController < ApplicationController
 
   def profile
     redirect_to "http://ab.khetabeghadir.com?#profile"
+  end
+
+
+  def recover_password
+    number = params[:mobile_number]
+    persons = Person.where(:mobile_number => number)
+    if persons.any?
+      if verify_recaptcha
+        person = persons.first
+        new_pass = person.generate_password
+        p = "#{person.gender_fa}#{person.name} \\n رمز عبور جدید شما در آبونمان خطابه غدیر و فدک: \\n #{new_pass} \\n شماره موبایل: \\n #{person.mobile_number} \\n http://ab.khetabeghadir.com/profile \\n یا علی."
+        send_msg(person,p)
+        redirect_to "#{root_path}#profile" , :alert => "رمز جدید برای شما ارسال شد."
+      else
+        redirect_to "#{root_path}#profile" , :alert => "امکان دسترسی به این بخش وجود ندارد."
+      end
+    else
+      redirect_to "#{root_path}#profile" , :alert => "شماره موبایل #{number} تا به حال در سیستم ثبت نشده است."
+    end
   end
 
 end

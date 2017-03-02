@@ -70,5 +70,10 @@ input {
   text-align: center !important;
 }
 .box{
-display: -webkit-box;
+  display: -webkit-box;
+}
+
+.required label{
+  color: #9d2900 !important;
+  font-style: italic;
 }

@@ -3,7 +3,7 @@ ActiveAdmin.register Person do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-  permit_params :name, :email_address, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number , :encrypted_password, :password
+  permit_params :name, :email_address, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number , :encrypted_password, :password,:bank_account_id
 
   menu label: "مشترکین" , priority: 2
 
@@ -68,6 +68,9 @@ ActiveAdmin.register Person do
     row "مبلغ-تومان" do |p|
       p.pay_amount
     end
+    row "شماره حساب دریافت" do |p|
+      p.bank_account
+    end
   end
   # :name, :email_address,:encrypted_password, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number
   panel "پرداخت های #{person.name}" do
@@ -99,6 +102,7 @@ form do |f|
     f.input :pay_start , :as => :string, :input_html => {:class => 'fa-date'}, label: "تاریخ شروع دوره"
     f.input :pay_period , label: "دوره پرداخت"
     f.input :pay_amount , label: "مبلغ پرداخت"
+    f.input :bank_account_id , label: "شماره حساب دریافت" , :as => :select, :collection => BankAccount.all.collect {|o| ["#{o.name}", o.id]}
   end
   f.actions
   f.inputs class: "hidden" do
@@ -106,15 +110,14 @@ form do |f|
   end
 end
 
-
 filter :pay_amount , label: "مبلغ پرداخت"
 filter :pay_period, label: "دوره پرداخت"
 filter :phone_number, label: "شماره ثابت"
 filter :mobile_number, label: "شماره موبایل"
 filter :email_address, label: "پست الکترونیکی"
-# filter :pay_start ,  as: :numeric
 filter :birthdate , label: "تاریخ تولد"
 filter :name, label: "نام مشترک"
+filter :bank_account , label: "شماره حساب دریافت"
 filter :gender, label: "جنسیت"
 filter :city, label: "شهر سکونت"
 filter :city_state , label: "استان" , :as => :select, :collection => City.all.order("state").distinct.pluck(:state)

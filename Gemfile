@@ -49,7 +49,7 @@ gem 'active_median', '~> 0.1.0'
 gem 'premailer-rails'
 gem 'nokogiri'
 gem 'savon', '~> 2.0'
-
+gem "recaptcha", require: "recaptcha/rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -59,7 +59,6 @@ gem 'capistrano', '~> 3.1.0'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rbenv', github: "capistrano/rbenv"
-gem 'devise'
 gem 'parsi-date'
 gem 'rails_pdate'
 

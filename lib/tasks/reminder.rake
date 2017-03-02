@@ -14,7 +14,7 @@ namespace :reminder do
         case r.alert_times
           # TO DO: should be 0 , 1 , 2 not 3
         when 0 , 1 , 2
-          p = "سلام، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، \\\\n لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را برای آبونه خطابه غدیر و فدک به شماره حساب ۱۲۱۲۳۳ بانک پاسارگاد واریز نمایید. \\\\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید. \\\\n  http://ab.khetabeghadir.com/#{r.payment.person.id}"
+          p = "سلام، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، \\\\n لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را برای آبونه خطابه غدیر و فدک به شماره کارت #{r.payment.person.bank_account.card_number} \\\\n بانک #{r.payment.person.bank_account.bank_name} واریز نمایید، \\\\n همچنین می توانید از لینک زیر مستقیما مبلغ را پرداخت کنید. \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
           send_cron_msg(r.payment.person,p)
           r.alert_times += 1
           # set this reminder on 2 days from now

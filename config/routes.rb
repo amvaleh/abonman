@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get 'zarinpal/:id' => 'zarinpal#verify'
   get '/profile' => 'home#profile'
   get '/:id' => 'home#redirect'
+  post '/recover_password' => 'home#recover_password'
 
 end

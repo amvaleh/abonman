@@ -7,6 +7,15 @@
   <noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
 </head>
 <body>
+  <div style="top:5px;" class="error">
+    <p style="color:red;">
+      <% if alert=="Invalid Mobile number or password." %>
+      شماره موبایل یا رمز عبور اشتباه است.
+      <% else %>
+      <%= alert %>
+      <% end %>
+    </p>
+  </div>
   <!-- Wrapper-->
   <div id="wrapper">
 
@@ -32,16 +41,7 @@
             </a>
           </div>
           <div class="9u 12u$(mobile)" style="float:left!important">
-            <div style="top:15px;" class="error">
-              <p style="color:green;"><%= notice %></p>
-              <p style="color:red;">
-                <% if alert=="Invalid Mobile number or password." %>
-                شماره موبایل یا رمز عبور اشتباه است.
-                <% else %>
-                <%= alert %>
-                <% end %>
-              </p>
-            </div>
+
           </div>
         </div>
         <header>
@@ -87,10 +87,17 @@
             </div>
             <div class="12u$">
               <input type="submit" value="ثبت" style="float:left"/>
+              <input type="button" id="recover_password" value="بازیابی رمز عبور" style="float:right"/>
             </div>
           </div>
         </div>
         <% end %>
+
+        <div class="row">
+          <div class="12u$">
+          </div>
+        </div>
+
         <% else %>
         <header>
           <h2>
@@ -162,12 +169,12 @@
                 <input type="hidden" name="person_id" value="<%= @person.id%>" >
                 <p style="direction: rtl; text-align:center;">
                   <%= @person.name %> - آبونه <%= @person.payments.wating.last.deadline.to_pdate.strftime("%b")%> ماه
-                <% if @person.payments.ignored.any? %>
-                <br>
+                  <% if @person.payments.ignored.any? %>
+                  <br>
                   به همراه
                   آبونه ماه های
                   <% @person.payments.ignored.each do |i| %>
-                    <%= i.deadline.to_pdate.strftime("%b") %>،
+                  <%= i.deadline.to_pdate.strftime("%b") %>،
                   <% end %>
                 </p>
                 <% end %>
@@ -187,9 +194,9 @@
             </p>
             <p>
               در صورت تمایل به عضویت در این طرح با شماره پشتیبانی
-               22393814
+              22393814
               و یا
-               22393809
+              22393809
               تماس حاصل نمایید تا اقدامات لازم برای عضویت شما صورت گیرد.
             </p>
 
@@ -233,6 +240,26 @@
   </div>
 </div>
 
+
+
+<div id="modal1" style="display: none; direction: rtl; position: fixed; z-index: 8; left: 50%; top: 200px; margin-left: -300px; margin-top: 0px;">
+  <div class="row" >
+    <div class="12u$(mobile) "style="direction:rtl;">
+      <p style="color:white;">
+        جهت بازیابی رمز عبور، لطفا شماره موبایل خود را وارد کنید:
+      </p>
+      <%= form_tag recover_password_path do %>
+      <%= number_field_tag :mobile_number, nil ,autofocus: true, :required => true, style: "text-align:center;" , placeholder: "شماره موبایل" %>
+      <br>
+      <br>
+      <%= recaptcha_tags %>
+      <input type="submit" value="ثبت" style="background-color:#7373d9; float:left;"/>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
 </body>
 </html>

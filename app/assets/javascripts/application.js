@@ -17,3 +17,24 @@
 //= require skel-viewport.min
 //= require util
 //= require main
+//= require jquery.easyModal
+
+
+
+// $("recover_modal").easyModal();
+// var recover = document.getElementById('recover_password');
+// recover.addEventListener('click', function() {
+//   // alert("in");
+//   $("modal1").easyModal();
+//   $("modal1").trigger('openModal');
+// } , false);
+
+$('#modal1').easyModal({
+	top: 200,
+	overlayOpacity: 0.9,
+});
+
+$('#recover_password').click(function(e){
+	$('#modal1').trigger('openModal');
+	e.preventDefault();
+});
