@@ -1,20 +1,14 @@
 development:
-  :address: smtp.khetabeghadir.com
-  :port: 465
-  :authentication: plain
+  :address: mail.khetabeghadir.com
+  :port: 25
   :user_name: ab@khetabeghadir.com
   :password: bgDh0$96
   :authentication: login
-  # :ssl: true
-  # :tls: true
-  :enable_starttls_auto: true
+  # :enable_starttls_auto:  true
 production:
-  :address: smtp.khetabeghadir.com
-  :port: 465
-  :authentication: plain
+  :address: mail.khetabeghadir.com
+  :port: 25
   :user_name: ab@khetabeghadir.com
   :password: bgDh0$96
   :authentication: login
-  # :ssl: true
-  # :tls: true
-  :enable_starttls_auto: true
+  # :enable_starttls_auto:  true
