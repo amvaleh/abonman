@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
 
   include ApplicationHelper
+  include Recaptcha::Verify
+  include Recaptcha::ClientHelper
 
   def home
     # redirect_to admin_dashboard_path
