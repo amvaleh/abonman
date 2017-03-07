@@ -10,14 +10,20 @@ class ZarinpalController < ActionController::Base
     end
     if !params['amount'].blank?
       if params['amount'].to_i > 99
+
+        # only in khetabeghadir
+        if params[:person_id].present? and Person.where(id: params[:person_id]).any?
+          person = Person.find(params[:person_id])
+        end
+        # only in khetabeghadir
         client = Savon.client(
         wsdl: "https://de.zarinpal.com/pg/services/WebGate/wsdl")
         response = client.call(:payment_request, message: {
-          "MerchantID" => "5599b1a0-dfb0-11e6-a851-005056a205be", # ای پی آی درگاه زرین پال شما
+          "MerchantID" => person.bank_account.merchant_code, # ای پی آی درگاه زرین پال شما
           "Amount" => params['amount'], # مبلغ پرداختی
           "Description" => "درگاه خطابه غدیر و فدک",
-          "Email" => "amvaleh@gmail.com",
-          "Mobile" => "09353954916",
+          "Email" => person.bank_account.support_email,
+          "Mobile" => person.bank_account.support_number,
           "CallbackURL" => "#{callbackurl}/zarinpal/verify" # صفحه بازگشت از درگاه
           })
           results = response.body
