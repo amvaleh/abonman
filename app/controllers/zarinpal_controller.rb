@@ -11,11 +11,12 @@ class ZarinpalController < ActionController::Base
     if !params['amount'].blank?
       if params['amount'].to_i > 99
 
-        # only in khetabeghadir
+        # only in khetabeghadir #
         if params[:person_id].present? and Person.where(id: params[:person_id]).any?
           person = Person.find(params[:person_id])
         end
-        # only in khetabeghadir
+        # only in khetabeghadir #
+
         client = Savon.client(
         wsdl: "https://de.zarinpal.com/pg/services/WebGate/wsdl")
         response = client.call(:payment_request, message: {
@@ -65,9 +66,18 @@ class ZarinpalController < ActionController::Base
     end
     def verify
       if !params['Authority'].blank?
+
+        authority = params[:Authority].sub(/^[0:]*/,"") # removing leading zeros coming from paypal
+
+        # only in khetabeghadir #
+        if Payment.where(:uid=>authority).any?
+          pay_of_person = Payment.find_by_uid(authority)
+        end
+        # only in khetabeghadir #
+
         client = Savon.client(wsdl: "https://de.zarinpal.com/pg/services/WebGate/wsdl")
         response = client.call(:payment_verification, message: {
-          "MerchantID" => "5599b1a0-dfb0-11e6-a851-005056a205be", # ای پی آی درگاه زرین پال شما
+          "MerchantID" => pay_of_person.person.bank_account.merchant_code , # ای پی آی درگاه زرین پال شما
           "Amount" => session[:AMOUNT], # مبلغ پرداختی که در سشن قرارداده شده بود
           "Authority" => params['Authority']
           })
@@ -76,7 +86,6 @@ class ZarinpalController < ActionController::Base
           results = response.body
           status = results[:payment_verification_response][:status]
           ref_id = results[:payment_verification_response][:ref_id]
-          authority = params[:Authority].sub(/^[0:]*/,"") # removing leading zeros coming from paypal
           if status.to_i < 100 # it is not verified!
             if Payment.where(:uid => authority , :person_id => nil).any?
               # delete no-person payment with authority
