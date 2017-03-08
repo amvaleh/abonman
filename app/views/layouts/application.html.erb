@@ -5,11 +5,12 @@
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+
+
 </head>
 <body>
   <div style="top:5px;" class="error">
-    <p style="color:red;">
+    <p style="color:white;">
       <% if alert=="Invalid Mobile number or password." %>
       شماره موبایل یا رمز عبور اشتباه است.
       <% else %>
@@ -250,17 +251,12 @@
       <%= form_tag recover_password_path do %>
       <%= number_field_tag :mobile_number, nil ,autofocus: true, :required => true, style: "text-align:center;" , placeholder: "شماره موبایل" %>
       <br>
-      <br>
-      <%#= recaptcha_tags %>
-      <div class="g-recaptcha" data-sitekey="6LfiehcUAAAAADrngFwAJUhXH9NiWyVfMz89eJ7v"></div>
-
+      <%= show_simple_captcha %>
       <input type="submit" value="ثبت" style="background-color:#7373d9; float:left;"/>
       <% end %>
     </div>
   </div>
 </div>
-
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
 </body>
 </html>

@@ -62,3 +62,9 @@
   font-size: 15px;
   text-align: center;
 }
+
+.simple_captcha{
+  background: white;
+  width: 100%;
+  text-align: center;
+}

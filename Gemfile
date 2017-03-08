@@ -49,7 +49,7 @@ gem 'active_median', '~> 0.1.0'
 gem 'premailer-rails'
 gem 'nokogiri'
 gem 'savon', '~> 2.0'
-gem "recaptcha", require: "recaptcha/rails"
+gem 'simple_captcha', :git => 'git://github.com/pludoni/simple-captcha.git'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

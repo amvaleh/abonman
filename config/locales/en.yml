@@ -26,6 +26,12 @@ en:
   # time:
   #   formats:
   #     long: "%Y-%m-%d %H:%M:%S"
+  simple_captcha:
+    placeholder: "مقدار تصویر را وارد کنید"
+    label: ""
+    message:
+      default: "Secret Code did not match with the Image"
+      user: "The secret Image and code were different"
   active_admin:
     scope:
       payment:
