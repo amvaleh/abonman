@@ -6,10 +6,11 @@ module ApplicationHelper
       puts msg
       email_msg = msg
       puts email_msg
-      email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
+      # email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
+      # puts email
     end
     #
-    # send sms
+    # # send sms
     client = Savon.client(wsdl: "http://mihansmscenter.com/webservice/?wsdl")
     text = msg.gsub("\\n", "\n")
     response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
@@ -24,9 +25,7 @@ module ApplicationHelper
     res2 = `#{telegram_path} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{msg}'`
     puts res2
     logger.info(res2)
-    #
   end
-
 
   def send_cron_msg(person,msg)
 
@@ -35,7 +34,7 @@ module ApplicationHelper
       puts msg
       email_msg = msg.gsub(/\\\\n/ , "\\n")
       puts email_msg
-      email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
+      # email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
     end
     #
 

@@ -5,6 +5,8 @@
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 <body>
   <div style="top:5px;" class="error">
@@ -252,7 +254,9 @@
       <%= number_field_tag :mobile_number, nil ,autofocus: true, :required => true, style: "text-align:center;" , placeholder: "شماره موبایل" %>
       <br>
       <br>
-      <%= recaptcha_tags %>
+      <%#= recaptcha_tags %>
+      <div class="g-recaptcha" data-sitekey="6LfiehcUAAAAADrngFwAJUhXH9NiWyVfMz89eJ7v"></div>
+
       <input type="submit" value="ثبت" style="background-color:#7373d9; float:left;"/>
       <% end %>
     </div>
