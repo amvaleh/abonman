@@ -30,7 +30,7 @@
 // } , false);
 
 $('#modal1').easyModal({
-	top: 200,
+	top: '50%',
 	overlayOpacity: 0.9,
 });
 
