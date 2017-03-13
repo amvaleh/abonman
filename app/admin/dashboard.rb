@@ -42,13 +42,13 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
       end
-      panel "پیامک های کوتاه ارسال شده" , class: "rtl" do
-        columns do
-          column do
-            render partial: "sms_sent"
-          end
-        end
-      end
+      # panel "پیامک های کوتاه ارسال شده" , class: "rtl" do
+      #   columns do
+      #     column do
+      #       render partial: "sms_sent"
+      #     end
+      #   end
+      # end
     end
   end
 end # content

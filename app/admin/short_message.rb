@@ -18,6 +18,7 @@ ActiveAdmin.register ShortMessage do
   # end
 
   index  :title => 'پیامک های ارسال شده' do
+    render "short_massage_index"
     selectable_column
     column "مشترک" do |p|
       p.person
@@ -32,6 +33,11 @@ ActiveAdmin.register ShortMessage do
       p.created_at.to_date.to_pdate.strftime("%A %d %b %Y")
     end
   end
+
+  filter :person , label: "فرد"
+  filter :content , label: "متن"
+  filter :response , label: "بازخورد"
+  filter :created_at , label: "ارسال پیامک در بازه"
 
 
 end

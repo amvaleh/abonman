@@ -30,7 +30,7 @@ class Payment < ApplicationRecord
         payment = Payment.create do |p|
           p.person = self.person
           p.amount = (self.person.pay_amount.to_i + self.person.id).to_s
-          p.deadline = self.deadline + self.person.pay_period.days # later month
+          p.deadline = self.deadline + self.person.pay_period.month # later month
         end
       end
       # thanks person with message
@@ -78,8 +78,7 @@ class Payment < ApplicationRecord
   scope :on_time, lambda { where(["payed_at - deadline < ? ", 1.week]) }
 
   scope :incoming, -> { where('payment_status_id = ? and deadline >= ?' , PaymentStatus.find_by_name("wating").id , Time.now ) }
-  scope :not_payed, -> { where('payment_status_id = ?' , PaymentStatus.find_by_name("ignored").id ) }
-
+  scope :not_payed, -> { where('payment_status_id = ? or payment_status_id = ?' , PaymentStatus.find_by_name("ignored").id , 4 ) }
 
   def farsi_status
     case self.payment_status_id
