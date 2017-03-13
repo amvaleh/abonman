@@ -89,6 +89,8 @@ class Payment < ApplicationRecord
       "پرداخت شده"
     when 3
       "نادیده گرفته شده"
+    else
+      "نادیده گرفته شده"
     end
   end
 end
