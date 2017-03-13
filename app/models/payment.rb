@@ -73,7 +73,8 @@ class Payment < ApplicationRecord
   scope :need_to_pay, -> { where('payment_status_id <> ? ' , 2) }
   scope :wating, -> { where(payment_status_id: '1') }
   scope :done, -> { where(payment_status_id: '2') }
-  scope :ignored, -> { where(payment_status_id: '3') }
+
+  scope :ignored, -> { where(payment_status_id: PaymentStatus.find_by_name("ignored").id ) }
 
   scope :on_time, lambda { where(["payed_at - deadline < ? ", 1.week]) }
 
