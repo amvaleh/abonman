@@ -24,7 +24,7 @@ namespace :reminder do
         else
           # cancel this turn payment
           payment = r.payment
-          payment.payment_status_id = 3
+          payment.payment_status_id = PaymentStatus.find_by_name("ignored").id
           payment.save
           last_reminder = payment.reminder
           last_reminder.destroy
