@@ -6,8 +6,8 @@ module ApplicationHelper
       puts msg
       email_msg = msg
       puts email_msg
-      # email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
-      # puts email
+      email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
+      puts email
     end
     #
     # # send sms
@@ -34,7 +34,7 @@ module ApplicationHelper
       puts msg
       email_msg = msg.gsub(/\\\\n/ , "\\n")
       puts email_msg
-      # email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
+      email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
     end
     #
 
@@ -43,6 +43,7 @@ module ApplicationHelper
     text = msg.gsub("\\\\n", "\n")
     # byebug
     response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
+    ShortMessage.create!(:person => person , :content=> text, :response=> response.body[:send_response][:status_message])
     #
 
     # send telegram
