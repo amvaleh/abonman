@@ -78,7 +78,7 @@ class Payment < ApplicationRecord
   scope :on_time, lambda { where(["payed_at - deadline < ? ", 1.week]) }
 
   scope :incoming, -> { where('payment_status_id = ? and deadline >= ?' , PaymentStatus.find_by_name("wating").id , Time.now ) }
-  scope :not_payed, -> { where('payment_status_id = ? or payment_status_id = ?' , PaymentStatus.find_by_name("ignored").id , '4' ) }
+  scope :not_payed, -> { where('payment_status_id = ? or payment_status_id = ?' , PaymentStatus.find_by_name("ignored").id , 3 ) }
 
   def farsi_status
     case self.payment_status_id
