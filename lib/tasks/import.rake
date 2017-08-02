@@ -8,7 +8,6 @@ namespace :import do
 
   # task: check for new sms
   task people_csv: :environment do
-    Person.destroy_all
     csv_text = File.read('finallist.csv')
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
