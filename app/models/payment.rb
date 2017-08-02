@@ -1,4 +1,5 @@
 class Payment < ApplicationRecord
+  include ActiveModel::Dirty
   include ApplicationHelper
 
   belongs_to :person
@@ -27,6 +28,14 @@ class Payment < ApplicationRecord
       end
       # set new payment if payment is for a person
       if self.person.present? and self.person.payments.wating.count == 0
+        if self.amount_changed?
+          old_amount = self.changes[:amount].first.to_i
+          new_amunt = self.changes[:amount].second.to_i
+          # lower
+
+          # higher
+
+        end
         payment = Payment.create do |p|
           p.person = self.person
           p.amount = (self.person.pay_amount.to_i + self.person.id).to_s
@@ -35,12 +44,13 @@ class Payment < ApplicationRecord
       end
       # thanks person with message
       if self.person.present?
-        p= "پرداخت #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد.\\n"
+        khotbe= "على‏ ذالِكَ نَحْيى..........وَلا نَرْجِعُ عَنِ الْعَهْدِ وَلا نَنْقُضُ الْميثاقَ. \\\\n با اين پيمان زنده ‏ايم ............ و هرگز از عهد خود برنگشته، پيمان نشكنيم. \\\\n"
+        p= " همیار گرامی،\\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n همیاری #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد، از مشارکت شما سپاس گزاریم."
         if payment.present?
-          p = p + "موعد پرداخت بعدی شما #{payment.deadline.to_pdate.strftime("%e %b %Y")} خواهد بود.\\n"
+          p = p + "موعد پرداخت بعدی ما تاریخ #{payment.deadline.to_pdate.strftime("%e %b %Y")} انشاءلله.\\\\n "
         end
-        p = p + "التماس دعای فرج."
-        send_msg(self.person,p)
+        p = p + "التماس دعای فرج"
+        send_cron_msg(self.person,p,khotbe)
       end
     end
   end

@@ -41,8 +41,8 @@ class HomeController < ApplicationController
     if simple_captcha_valid?
       if persons.any?
         person = persons.first
-        p = "#{person.gender_fa}#{person.name} \\n رمز عبور جدید شما در آبونمان خطابه غدیر و فدک: \\n #{person.generate_password} \\n شماره موبایل: \\n #{person.mobile_number} \\n http://ab.khetabeghadir.com/profile \\n یا علی."
-        send_msg(person,p)
+        p = "#{person.gender_fa}#{person.name} \\\\n رمز عبور جدید شما در آبونمان خطابه غدیر و فدک: \\\\n #{person.generate_password} \\\\n شماره موبایل: \\\\n #{person.mobile_number} \\\\n http://ab.khetabeghadir.com/profile \\\\n یا علی."
+        send_cron_msg(person,p)
         redirect_to "#{root_path}#profile" , :alert => "رمز جدید برای شما ارسال شد."
       else
         redirect_to "#{root_path}#profile" , :alert => "شماره موبایل #{number} تا به حال در سیستم ثبت نشده است."

@@ -37,7 +37,7 @@ ActiveAdmin.register Payment do
   form do |f|
     f.inputs "Payment" do
       f.input :payment_status
-      # f.input :uid
+      f.input :amount
       f.input :deadline , :as => :string, :input_html => {:class => 'fa-date'}
     end
     f.actions
@@ -47,13 +47,13 @@ ActiveAdmin.register Payment do
   end
 
   # filter :people_name_cont , label: "شخص" , as: :string
+  filter :person, :as => :select, :collection => Person.all.collect {|o| [o.name, o.id]} , label: "مشترک"
   filter :uid , label: "شناسه پیگیری پرداخت"
   filter :amount , label: "مبلغ - تومان"
   filter :deadline , label: "مهلت پرداخت در بازه"
   filter :payed_at , label: "انجام پرداخت در بازه"
   filter :created_at , label: "پرداخت های در بازه"
   filter :payment_status , label: "وضعیت پرداخت"
-  filter :person, :as => :select, :collection => Person.all.collect {|o| [o.name, o.id]} , label: "مشترک"
   # filter :amount , label: "مبلغ - تومان"
 
 

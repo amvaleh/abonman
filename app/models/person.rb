@@ -29,22 +29,13 @@ class Person < ApplicationRecord
 
   def set_payment
     payment = Payment.new
+    puts " <= " + self.pay_start.to_s + " => "
+    sd = self.pay_start # Bitch
     payment.person = self
     payment.amount = (self.pay_amount.to_i + self.id).to_s
-    payment.deadline =  self.payment_deadline
+    payment.deadline =  sd # to check !!@#$
     payment.amount = self.pay_amount + self.id
     payment.save
-  end
-
-  def update_payment
-    p = self.payments.last
-    if self.pay_start_changed? or self.pay_period_changed?
-      p.deadline = self.payment_deadline
-    end
-    if self.pay_amount_changed?
-      p.amount = my_payment_amount
-    end
-    p.save
   end
 
   def initiate
@@ -54,8 +45,22 @@ class Person < ApplicationRecord
     person.password_confirmation = pass
     puts pass
     person.save
-    p = "سلام، #{self.gender_fa}#{self.name} \\n اطلاعات شما در سامانه همیار خطابه غدیر و فدک به روز رسانی شد.\\n http://ab.khetabeghadir.com/profile \\n شماره موبایل: \\n #{person.mobile_number} \\n  رمز عبور شما:  \\n #{pass} \\n یا علی."
-    send_msg(person,p)
+    p = "همیار گرامی خطابه غدیر و فدک، #{self.gender_fa} #{self.name}، سلام علیکم.\\\\n خداوند را شاکریم که توفیق خدمتگزاری به ساحت مقدس حضرت صاحب الزمان علیه السلام نصیبمان گردیده است. حساب کاربری آبونمان شما فعال شده است و بدین شرح می باشد: \\\\n لینک حساب: \\\\n http://ab.khetabeghadir.com/profile \\\\n شماره موبایل: \\\\n #{person.mobile_number} \\\\n  رمز عبور شما:  \\\\n #{pass} \\\\n یا علی و التماس دعای فرج."
+    send_cron_msg(person,p,"")
+  end
+
+  def update_payment
+    p = self.payments.last
+    if self.pay_start_changed?
+      p.deadline = self.pay_start + ( ((self.payments.done.count)*self.pay_period).month)
+    end
+    if self.pay_period_changed?
+      p.deadline = self.pay_start + ((self.payments.done.count)*self.pay_period_was).month + self.pay_period.month if self.pay_period_was != nil
+    end
+    if self.pay_amount_changed?
+      p.amount = my_payment_amount
+    end
+    p.save
   end
 
   def not_payed_turns
@@ -74,7 +79,6 @@ class Person < ApplicationRecord
     return (total+self.id.to_i)
   end
 
-
   def amount_for_the_person # wating and ignored
     total = 0
     self.payments.need_to_pay.each do |p|
@@ -82,7 +86,6 @@ class Person < ApplicationRecord
     end
     return total
   end
-
 
   def generate_password
     pass = 1_000 + Random.rand(10_000 - 1_000)
@@ -93,10 +96,9 @@ class Person < ApplicationRecord
     return pass
   end
 
-
   def payment_deadline
     # ًTODO : calculate number of payments, then set the deadline
-    self.pay_start + self.pay_period.days #later should be month
+    self.pay_start + self.pay_period.month #later should be month
   end
 
   def my_payment_amount

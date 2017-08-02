@@ -6,10 +6,14 @@ env :PATH, ENV['PATH']
 set :output, "log/cron.log"
 
 
- every 10.minute do
+ every 1.minute do
     rake "reminder:explore"
  end
 
+
+ every 1.minute do
+    rake "telegram:send"
+ end
 
 
 # Example:

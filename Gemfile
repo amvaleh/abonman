@@ -51,6 +51,9 @@ gem 'nokogiri'
 gem 'savon', '~> 2.0'
 gem 'simple_captcha', :git => 'git://github.com/pludoni/simple-captcha.git'
 
+gem 'backup'
+gem 'ransack'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
