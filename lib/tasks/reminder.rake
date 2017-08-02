@@ -18,7 +18,7 @@ namespace :reminder do
           send_cron_msg(r.payment.person,p,khotbe)
           r.alert_times += 1
           # set this reminder on 2 days from now
-          r.sms_date = Time.now + 4.days
+          r.sms_date = Time.now + 7.days
           #
           r.save
         else
