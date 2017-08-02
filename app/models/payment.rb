@@ -45,7 +45,7 @@ class Payment < ApplicationRecord
       # thanks person with message
       if self.person.present?
         khotbe= "على‏ ذالِكَ نَحْيى..........وَلا نَرْجِعُ عَنِ الْعَهْدِ وَلا نَنْقُضُ الْميثاقَ. \\\\n با اين پيمان زنده ‏ايم ............ و هرگز از عهد خود برنگشته، پيمان نشكنيم. \\\\n"
-        p= " همیار گرامی،\\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n همیاری #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد، از مشارکت شما سپاس گزاریم."
+        p= " همیار گرامی،\\\\n #{self.person.gender_fa} #{self.person.name}، سلام علیکم \\\\n همیاری #{self.deadline.to_pdate.strftime("%b")} ماه شما در تاریخ #{self.payed_at.to_date.to_pdate.strftime("%e %b %Y")} دریافت شد، از مشارکت شما سپاس گزاریم."
         if payment.present?
           p = p + "موعد پرداخت بعدی ما تاریخ #{payment.deadline.to_pdate.strftime("%e %b %Y")} انشاءلله.\\\\n "
         end
