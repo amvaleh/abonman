@@ -8,7 +8,7 @@ namespace :reminder do
   # task: check for new sms
   task explore: :environment do
     Reminder.all.each do |r|
-      if r.sms_date.day == Time.now.day
+      if r.sms_date.to_date === Time.now.to_date
         r.sms_status = SmsStatus.find_by_name("sent")
         case r.alert_times
         when 0 , 1 , 2
@@ -18,7 +18,7 @@ namespace :reminder do
           send_cron_msg(r.payment.person,p,khotbe)
           r.alert_times += 1
           # set this reminder on 2 days from now
-          r.sms_date = Time.now + 7.days
+          r.sms_date = Time.now + 4.days
           #
           r.save
         else
