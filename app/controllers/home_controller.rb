@@ -22,6 +22,7 @@ class HomeController < ApplicationController
       @person = current_person
     end
   end
+
   def redirect
     if params[:id].present? and Person.where(:id => params[:id]).any?
       redirect_to "http://ab.khetabeghadir.com?p=#{params[:id]}#aboneh"

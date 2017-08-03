@@ -32,6 +32,7 @@ ActiveAdmin.register ShortMessage do
     column "تاریخ ارسال" do |p|
       p.created_at.to_date.to_pdate.strftime("%A %d %b %Y")
     end
+    actions
   end
 
   filter :person , label: "فرد"

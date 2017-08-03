@@ -1,44 +1,24 @@
 module ApplicationHelper
-  # def send_msg(person,msg)
-  #   # send email
-  #   if person.email_address.present?
-  #     puts msg
-  #     email_msg = msg
-  #     puts email_msg
-  #     # email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
-  #     # puts email
-  #   end
-  #   #
-  #   # # send sms
-  #   client = Savon.client(wsdl: "http://mihansmscenter.com/webservice/?wsdl")
-  #   text = msg.gsub("\\n", "\n")
-  #   # response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
-  #   # ShortMessage.create!(:person => person , :content=> text, :response=> response.body[:send_response][:status_message])
-  #   #
-  #   # send telegram
-  #
-  #
-  #   payam = "\"#{message}\""
-  #   user_teleg_name = Time.now.to_s.gsub(" ", "_") + " " + to.to_s
-  #   Telegram.create!(teleg_name: user_teleg_name , number: to , message: payam )
-  #
-  #
-  #   contact_name = person.name.gsub(" ", "_")
-  #   contact_name2 = contact_name + " " + person.pay_period.to_s + "mah"
-  #   res1 = `#{telegram_path} -W -e 'add_contact +98#{person.mobile_number} #{contact_name2}'`
-  #   msg = "\"#{msg}\""
-  #   puts contact_name2.gsub(" ", "_")
-  #   res2 = `#{telegram_path} -W -e 'msg #{contact_name2.gsub(" ", "_")} #{msg}'`
-  #   puts res2
-  #   logger.info(res2)
-  # end
+
+  require "uri"
+  require 'net/http'
+
+  def send_sms(number,text)
+    # function added after sms rake task
+    pass = "smspanel810190501"
+    result = Net::HTTP.get(URI.parse(URI.encode("http://smspanel.Trez.ir/SendMessageWithUrl.ashx?Username=arcasimap&Password=#{pass}&PhoneNumber=9830008632000014&MessageBody=#{text}&RecNumber=#{number}&Smsclass=1")))
+    puts result
+    return result
+  end
 
   def send_cron_msg(person,msg,khotbe)
     # send sms
-    client = Savon.client(wsdl: "http://mihansmscenter.com/webservice/?wsdl")
+    # client = Savon.client(wsdl: "http://mihansmscenter.com/webservice/?wsdl")
+    # response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
     text = msg.gsub("\\\\n", "\n")
-    response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
-    ShortMessage.create!(:person => person , :content=> text, :response=> response.body[:send_response][:status_message])
+    pass = "smspanel810190501"
+    result = Net::HTTP.get(URI.parse(URI.encode("http://smspanel.Trez.ir/SendMessageWithUrl.ashx?Username=arcasimap&Password=#{pass}&PhoneNumber=9830008632000014&MessageBody=#{text}&RecNumber=#{person.mobile_number}&Smsclass=1")))
+    ShortMessage.create!(:person => person , :content=> text, :response=> result )
     #
     if khotbe.present?
       msg = khotbe + msg
