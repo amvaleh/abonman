@@ -12,11 +12,11 @@ namespace :telegram do
       puts t.teleg_name
       puts t.teleg_name.gsub(" ", "_")
       puts t.message
+      t.read = true
+      t.save
       res = `(echo "contact_list"; echo "add_contact +98#{t.number} #{t.teleg_name}"; sleep 5; echo 'msg #{t.teleg_name.gsub(" ", "_")} #{t.message}') | #{telegram_path} -W`
       puts "done. result is:"
       puts res.last(100)
-      t.read = true
-      t.save
     end
   end
 end
