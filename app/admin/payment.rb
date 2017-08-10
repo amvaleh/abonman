@@ -1,7 +1,7 @@
 ActiveAdmin.register Payment do
 
 
-  permit_params :id, :amount , :payment_status_id , :person_id , :deadline
+  permit_params :id, :amount , :payment_status_id , :person_id , :deadline, :uid
 
   menu label: "پرداخت ها" , priority: 2
 
@@ -38,6 +38,7 @@ ActiveAdmin.register Payment do
     f.inputs "Payment" do
       f.input :payment_status
       f.input :amount
+      f.input :uid
       f.input :deadline , :as => :string, :input_html => {:class => 'fa-date'}
     end
     f.actions
@@ -47,7 +48,7 @@ ActiveAdmin.register Payment do
   end
 
   # filter :people_name_cont , label: "شخص" , as: :string
-  filter :person, :as => :select, :collection => Person.all.collect {|o| [o.name, o.id]} , label: "مشترک"
+  filter :person_name, :as => :string , label: "نام مشترک"
   filter :uid , label: "شناسه پیگیری پرداخت"
   filter :amount , label: "مبلغ - تومان"
   filter :deadline , label: "مهلت پرداخت در بازه"
