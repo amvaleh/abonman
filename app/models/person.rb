@@ -66,9 +66,9 @@ class Person < ApplicationRecord
   def not_payed_turns
     total = 0
     self.payments.ignored.each do |p|
-      total = total + p.amount - self.id
+      total = total + (p.amount.to_i - self.id.to_i)
     end
-    return total
+    return (total+self.id.to_i)
   end
 
   def need_to_pay # wating and ignored
@@ -81,9 +81,14 @@ class Person < ApplicationRecord
 
   def amount_for_the_person # wating and ignored
     total = 0
-    self.payments.need_to_pay.each do |p|
+    self.payments.ignored.each do |p|
       total = total + p.amount - self.id
     end
+    if self.payments.wating.first.deadline <= Time.now
+      wating_payment = self.payments.wating.first
+      total = total + wating_payment.amount - self.id
+    end
+    # identify time
     return total
   end
 

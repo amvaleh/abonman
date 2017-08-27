@@ -168,11 +168,11 @@
               <div class="12u$">
                 <input type="hidden" name="person_id" value="<%= @person.id%>" >
                 <p style="direction: rtl; text-align:center;">
-                  <%= @person.name %> - آبونه <%= @person.payments.wating.last.deadline.to_pdate.strftime("%b")%> ماه
+                  <%= @person.name %> - آبونه بعدی : <%= @person.payments.wating.last.deadline.to_pdate.strftime("%b")%>  ماه
                   <% if @person.payments.ignored.any? %>
                   <br>
                   به همراه
-                  آبونه ماه های
+                  آبونه
                   <% @person.payments.ignored.each do |i| %>
                   <%= i.deadline.to_pdate.strftime("%b") %>،
                   <% end %>

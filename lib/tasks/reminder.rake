@@ -36,7 +36,7 @@ namespace :reminder do
           end
           #
           khotbe = "وَ مَنْ أَوْفى بِما عاهَدَ عَلَيْهُ اللَّهَ فَسَيُؤْتيهِ أَجْراً عَظيماً. \\\\n و خداوند آن را كه بر پيمان الاهى وفادار باشد، پاداش بزرگى خواهد داد. \\\\n"
-          p = "همیار محترم، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده است و همچنان منتظر حمایت شما بزرگواریم. \\\\n لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را به شماره کارت  #{r.payment.person.bank_account.card_number} \\\\n بانک #{r.payment.person.bank_account.bank_name} واریز،\\\\n و یا از طریق لینک زیر به سهولت پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
+          p = "همیار محترم، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده است و همچنان منتظر حمایت شما بزرگواریم. \\\\n لطفا مبلغ #{r.payment.person.not_payed_turns.to_i} تومان را به شماره کارت  #{r.payment.person.bank_account.card_number} \\\\n بانک #{r.payment.person.bank_account.bank_name} واریز،\\\\n و یا از طریق لینک زیر به سهولت پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
           send_cron_msg(person,p,khotbe)
         end
       end

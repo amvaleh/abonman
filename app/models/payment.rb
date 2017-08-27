@@ -27,7 +27,7 @@ class Payment < ApplicationRecord
         r.destroy
       end
       # set new payment if payment is for a person
-      if self.person.present? and self.person.payments.wating.count == 0
+      if self.person.present? and self.person.payments.wating.count == 0 # payment_status == wating
         if self.amount_changed?
           old_amount = self.changes[:amount].first.to_i
           new_amunt = self.changes[:amount].second.to_i
