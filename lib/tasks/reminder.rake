@@ -8,7 +8,7 @@ namespace :reminder do
   # task: check for new sms
   task explore: :environment do
     Reminder.all.each do |r|
-      if r.sms_date.to_date === Time.now.to_date
+      if r.sms_date.to_date === Time.now.to_date or r.sms_date.to_date <= Time.now.to_date 
         r.sms_status = SmsStatus.find_by_name("sent")
         case r.alert_times
         when 0 , 1 , 2
@@ -17,7 +17,7 @@ namespace :reminder do
           p = "همیار محترم، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n امروز موعد ما در حمایت مالی نشر خطابه غدیر و فدک می باشد، لطفا مبلغ #{r.payment.person.need_to_pay.to_i} تومان را به شماره کارت  #{r.payment.person.bank_account.card_number}  \\\\n به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز،\\\\n و یا از طریق لینک زیر به سهولت پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
           send_cron_msg(r.payment.person,p,khotbe)
           r.alert_times += 1
-          # set this reminder on 2 days from now
+          # set this reminder on 7 days from now
           r.sms_date = Time.now + 7.days
           #
           r.save
