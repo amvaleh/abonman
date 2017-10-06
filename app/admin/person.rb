@@ -84,6 +84,9 @@ ActiveAdmin.register Person do
       column "وضعیت پرداخت" do |p|
         p.farsi_status
       end
+      column "تغییر" do |p|
+        link_to "ویرایش" , edit_admin_payment_path(p)
+      end
     end
   end
   active_admin_comments
