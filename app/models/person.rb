@@ -79,7 +79,7 @@ class Person < ApplicationRecord
     return (total+self.id.to_i)
   end
 
-  def amount_for_the_person # wating and ignored
+  def amount_for_the_person # Bug here
     total = 0
     self.payments.ignored.each do |p|
       total = total + p.amount - self.id

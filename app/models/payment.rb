@@ -91,6 +91,11 @@ class Payment < ApplicationRecord
   scope :incoming, -> { where('payment_status_id = ? and deadline >= ?' , PaymentStatus.find_by_name("wating").id , Time.now ) }
   scope :not_payed, -> { where('payment_status_id = ? or payment_status_id = ?' , PaymentStatus.find_by_name("ignored").id , 3 ) }
 
+  scope :male_person, -> { joins(:person).where('people.gender_id = 1') }
+  scope :female_person, -> { joins(:person).where('people.gender_id = 2') }
+
+
+
   def farsi_status
     case self.payment_status_id
     when 1

@@ -38,6 +38,8 @@ en:
         incoming: "پرداخت های آینده"
         not_payed: "نادیده گرفته شده ها"
         done: "پرداخت شده ها"
+        male: "آقایان"
+        female: "بانوان"
       people:
         men: "آقایان"
         women: "بانوان"

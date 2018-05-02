@@ -13,6 +13,9 @@ ActiveAdmin.register Person do
   scope proc{ I18n.t'active_admin.scope.people.tehran'}, :tehran
   scope proc{ I18n.t'active_admin.scope.people.khosh_heshab'}, :khosh_heshab
 
+  # scope proc{ I18n.t'active_admin.scope.people.khosh_heshab'}, :male_person
+
+
   index :title => 'مشترکین' do
     render "person_index"
     selectable_column
@@ -74,6 +77,9 @@ ActiveAdmin.register Person do
   end
   # :name, :email_address,:encrypted_password, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number
   panel "پرداخت های #{person.name}" do
+
+    render "payment_statistics" , :person => person
+
     table_for person.payments.order("deadline DESC") do
       column "مبلغ-تومان" do |p|
         " #{p.amount.to_i} "

@@ -1,0 +1,11 @@
+<h2 style="text-align: right; ">
+  جمع پرداخت شده ها:
+  <%= person.payments.done.sum(:amount).to_i %>
+  تومان
+</h2>
+
+<h2 style="text-align: right;">
+  جمع بدهی:
+  <%= person.payments.ignored.sum(:amount).to_i %>
+  تومان
+</h2>
