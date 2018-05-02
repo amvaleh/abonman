@@ -10,11 +10,30 @@ ActiveAdmin.register Payment do
   scope proc{ I18n.t'active_admin.scope.payment.not_payed'}, :not_payed
   scope proc{ I18n.t'active_admin.scope.payment.incoming'}, :incoming
 
+  scope proc{ I18n.t'active_admin.scope.payment.male'}, :male_person
+  scope proc{ I18n.t'active_admin.scope.payment.female'}, :female_person
+
+  csv do
+    column :id
+    column("مشترک") { |payment| payment.person.name }
+    column("شماره موبایل") { |payment| payment.person.mobile_number }
+    column("وضعیت پرداخت") { |payment| payment.farsi_status }
+    column("شماره موبایل") { |payment| payment.person.mobile_number }
+    column("مبلغ - تومان") { |payment| payment.amount.to_i }
+    column("تاریخ مهلت پرداخت") { |payment| payment.deadline.to_pdate.strftime("%A %d %b %Y") if payment.deadline.present? }
+    column("تاریخ انجام پرداخت") { |payment| payment.payed_at.to_date.to_pdate.strftime("%A %d %b %Y") if payment.payed_at.present? }
+    column("شناسه پیگیری پرداخت") { |payment| payment.uid }
+  end
+
+
   index  :title => 'پرداخت ها' do
     render "payment_index"
     selectable_column
     column "مشترک" do |p|
       p.person
+    end
+    column "شماره موبایل" do |p|
+      p.person.mobile_number
     end
     column "مبلغ-تومان" do |p|
       " #{p.amount.to_i} "

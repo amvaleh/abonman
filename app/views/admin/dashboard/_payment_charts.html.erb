@@ -26,4 +26,32 @@
 </h4>
 <%= column_chart Payment.all.group_by_month("payments.payed_at").sum("amount").map{ |date,sum| [date.to_date.to_pdate.strftime("%b").to_s,sum] }, download: true, colors: [ '#22436d'] %>
 
+
+<h4 style="direction: rtl; text-align: right;">
+  نمودار پرداخت
+  <B style="font-size: 20px;">
+    شده ها
+  </B>
+  بر اساس
+  <B style="font-size: 20px;">
+    جنسیت
+  </B>
+</h4>
+<%= pie_chart Payment.all.done.joins(:person => :gender).group("genders.name").sum("amount") , download: true %>
+
+
+
+<h4 style="direction: rtl; text-align: right;">
+  نمودار پرداخت های
+  <B style="font-size: 20px;">
+    نادیده گرفته شده
+  </B>
+  بر اساس
+  <B style="font-size: 20px;">
+    جنسیت
+  </B>
+</h4>
+<%= pie_chart Payment.all.ignored.joins(:person => :gender).group("genders.name").sum("amount") , download: true %>
+
+
 </div>
