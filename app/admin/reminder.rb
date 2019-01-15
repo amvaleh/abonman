@@ -24,4 +24,14 @@ ActiveAdmin.register Reminder do
     actions
   end
 
+  form do |f|
+    f.inputs "Payment" do
+      f.input :payment_id , :as => :select, :collection => Payment.all.order("created_at").collect {|p| ["#{p.deadline.to_pdate.strftime("%A %d %b %Y")}-#{p.person.name}", p.id]}
+      f.input :sms_status
+      f.input :sms_date
+      f.input :alert_times
+    end
+    f.actions
+
+  end
 end
