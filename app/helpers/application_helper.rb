@@ -5,8 +5,8 @@ module ApplicationHelper
 
   def send_sms(number,text)
     # function added after sms rake task
-    pass = "smspanel810190501"
-    result = Net::HTTP.get(URI.parse(URI.encode("http://smspanel.Trez.ir/SendMessageWithUrl.ashx?Username=arcasimap&Password=#{pass}&PhoneNumber=9830008632000014&MessageBody=#{text}&RecNumber=#{number}&Smsclass=1")))
+    pass = "1841@1841"
+    result = Net::HTTP.get(URI.parse(URI.encode("http://smspanel.Trez.ir/SendMessageWithUrl.ashx?Username=khetabeghadir&Password=#{pass}&PhoneNumber=50002910001091&MessageBody=#{text}&RecNumber=#{number}&Smsclass=1")))
     puts result
     return result
   end
@@ -16,8 +16,8 @@ module ApplicationHelper
     # client = Savon.client(wsdl: "http://mihansmscenter.com/webservice/?wsdl")
     # response = client.call(:send, message: { username: "kajpars", password: "rf75#R" , to: "#{person.mobile_number}", from: "300076500110" , message: "#{text}"})
     text = msg.gsub("\\\\n", "\n")
-    pass = "smspanel810190501"
-    result = Net::HTTP.get(URI.parse(URI.encode("http://smspanel.Trez.ir/SendMessageWithUrl.ashx?Username=arcasimap&Password=#{pass}&PhoneNumber=9830008632000014&MessageBody=#{text}&RecNumber=#{person.mobile_number}&Smsclass=1")))
+    pass = "1841@1841"
+    result = Net::HTTP.get(URI.parse(URI.encode("http://smspanel.Trez.ir/SendMessageWithUrl.ashx?Username=khetabeghadir&Password=#{pass}&PhoneNumber=50002910001091&MessageBody=#{text}&RecNumber=#{person.mobile_number}&Smsclass=1")))
     ShortMessage.create!(:person => person , :content=> text, :response=> result )
     #
     if khotbe.present?
