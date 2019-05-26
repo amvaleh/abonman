@@ -1055,7 +1055,7 @@
 
 	#nav a {
 		position: relative;
-		display: inline-block;
+		/* display: inline-block; */
 		color: #ffffff;
 		width: 1em;
 		height: 1em;
@@ -1233,12 +1233,12 @@
 
 			#nav {
 				text-align: center;
-				height: 4.25em;
+				height: 5em;
 				cursor: default;
 			}
 
 				#nav a {
-					font-size: 2.5em;
+					font-size: 2em;
 					margin: 0 0.25em 0 0.25em;
 					opacity: 0.35;
 					outline: 0;
@@ -1402,14 +1402,14 @@
 					#me header > h1 {
 						position: absolute;
 						left: 10%;
-						bottom: 65.5%;
+						bottom: 70.5%;
 						margin: 0;
 					}
 
 					#me header > p {
 						position: absolute;
 						left: 0;
-						top: 40.5%;
+						top: 35%;
 						font-size: 1em;
 						letter-spacing: -0.015em;
 						margin-top: 0;
@@ -1501,12 +1501,12 @@
 
 			#nav {
 				text-align: center;
-				/*height: 3em;*/
+				height: 3em;
 				margin: 6px 0 8px 0;
 			}
 
 				#nav a {
-					font-size: 1.4em;
+					font-size: 1.5em;
 					opacity: 0.5;
 					outline: 0;
 					width: 1.5em;
@@ -1613,3 +1613,7 @@
 					}
 
 	}
+
+#mid_div a {
+  text-decoration: none;
+}

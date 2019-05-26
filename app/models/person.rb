@@ -1,5 +1,7 @@
 class Person < ApplicationRecord
   include ApplicationHelper
+  extend FriendlyId
+  friendly_id :generate_token, use: :slugged
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   validates_presence_of [:name,:mobile_number,:pay_period,:pay_start,:pay_amount,:gender,:bank_account,:city]
@@ -10,6 +12,14 @@ class Person < ApplicationRecord
 
   validates_uniqueness_of :mobile_number
   scope :two, -> { where(pay_period: '2') }
+
+  def generate_token
+    random_token = ''
+      loop do
+        random_token = SecureRandom.urlsafe_base64(4, false)
+        break random_token unless Person.exists?(slug: random_token)
+      end
+  end
 
   belongs_to :city
   belongs_to :gender

@@ -3,7 +3,7 @@ ActiveAdmin.register Person do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
-  permit_params :name, :email_address, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number , :encrypted_password, :password,:bank_account_id
+  permit_params :name, :email_address, :mobile_number,:phone_number,:pay_start,:pay_period,:pay_amount, :gender_id,:city_id,:birthdate,:phone_number , :encrypted_password, :password,:bank_account_id,:slug
 
   menu label: "مشترکین" , priority: 2
 
@@ -15,11 +15,11 @@ ActiveAdmin.register Person do
 
   # scope proc{ I18n.t'active_admin.scope.people.khosh_heshab'}, :male_person
 
-
   index :title => 'مشترکین' do
     render "person_index"
     selectable_column
     column :id
+    column :slug
     column "نام" do |p|
       p.name
     end
@@ -41,6 +41,7 @@ ActiveAdmin.register Person do
   show do
     attributes_table  do
       row :id
+      row :slug
       row "نام"do |p|
       p.name
     end
@@ -129,7 +130,7 @@ filter :name, label: "نام مشترک"
 filter :bank_account , label: "شماره حساب دریافت"
 filter :gender, label: "جنسیت"
 filter :city, label: "شهر سکونت"
-filter :city_state , label: "استان" , :as => :select, :collection => City.all.order("state").distinct.pluck(:state)
+# filter :city_state , label: "استان" , :as => :select, :collection => City.all.order("state").distinct.pluck(:state)
 
 # filter :city_id
 # filter :pay_amount,as: :string

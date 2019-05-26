@@ -51,6 +51,7 @@
 					$footer = $('#footer'),
 					$wrapper = $('#wrapper'),
 					$nav = $('#nav'), $nav_links = $nav.find('a'),
+          $mid_div = $('#mid_div'), $mid_div_links = $mid_div.find('a'),
 					$jumplinks = $('.jumplink'),
 					$form = $('form'),
 					panels = [],
@@ -109,7 +110,9 @@
 
 							// Change nav link (if it exists).
 								$nav_links.removeClass('active');
+                $mid_div_links.removeClass('active');
 								$nav_links.filter('[href="#' + id + '"]').addClass('active');
+                $mid_div_links.filter('[href="#' + id + '"]').addClass('active');
 
 							// Change hash.
 								if (i == 0)
@@ -166,6 +169,23 @@
 
 				// Nav + Jumplinks.
 					$nav_links.add($jumplinks).click(function(e) {
+						var t = $(this), href = t.attr('href'), id;
+
+						if (href.substring(0,1) == '#') {
+
+							e.preventDefault();
+							e.stopPropagation();
+
+							id = href.substring(1);
+
+							if (id in panels)
+								panels[id]._activate();
+
+						}
+
+					});
+
+          $mid_div_links.add($jumplinks).click(function(e) {
 						var t = $(this), href = t.attr('href'), id;
 
 						if (href.substring(0,1) == '#') {

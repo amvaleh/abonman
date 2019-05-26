@@ -5,8 +5,8 @@ class HomeController < ApplicationController
   def home
     # redirect_to admin_dashboard_path
     if params[:p].present?
-      if Person.where(id: params[:p]).any?
-        @person = Person.find(params[:p])
+      if Person.where(slug: params[:p]).any?
+        @person = Person.friendly.find(params[:p])
       end
     elsif current_person.present?
       @person = current_person
@@ -15,8 +15,8 @@ class HomeController < ApplicationController
 
   def pay
     if params[:p].present?
-      if Person.where(id: params[:p]).any?
-        @person = Person.find(params[:p])
+      if Person.where(slug: params[:p]).any?
+        @person = Person.friendly.find(params[:p])
       end
     elsif current_person.present?
       @person = current_person
@@ -24,8 +24,12 @@ class HomeController < ApplicationController
   end
 
   def redirect
-    if params[:id].present? and Person.where(:id => params[:id]).any?
-      redirect_to "http://ab.khetabeghadir.com?p=#{params[:id]}#aboneh"
+    if params[:id].present? and Person.where(:slug => params[:id]).any?
+      if Rails.env.production?
+        redirect_to "http://ab.khetabeghadir.com?p=#{params[:id]}"
+      else
+        redirect_to "http://localhost:3000?p=#{params[:id]}"
+      end
     else
       redirect_to root_path , alert: "شماره یکتا اشتباه است."
     end

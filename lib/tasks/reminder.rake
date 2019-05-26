@@ -8,41 +8,47 @@ namespace :reminder do
   # task: check for new sms
   task explore: :environment do
     Reminder.all.each do |r|
-      if r.sms_date.to_date === Time.now.to_date or r.sms_date.to_date <= Time.now.to_date 
+      if r.sms_date.to_date === Time.now.to_date or r.sms_date.to_date <= Time.now.to_date
         r.sms_status = SmsStatus.find_by_name("sent")
         case r.alert_times
         when 0
           # matn 3
           khotbe = "وَ طاعَتَنا أَهْلَ الْبَيْتِ نِظاماً لِلْمِلَّةِ \\\\n و پيروى ما اهل بيت را مايه ى هم آهنگى ملّت قرار داد.\\\\n"
-          p = "#{r.payment.person.gender_fa} #{r.payment.person.name}، با سلام، امروز موعد ما در حمایت نشر خطابه غدیر و فدک می باشد، لطفا آبونمان را از طریق لینک زیر پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+          p = "#{r.payment.person.gender_fa} #{r.payment.person.name}، با سلام، امروز موعد ما در حمایت نشر خطابه غدیر و فدک می باشد، لطفا آبونمان را از طریق لینک زیر پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.slug} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
           send_cron_msg(r.payment.person,p,khotbe)
           r.alert_times += 1
-          # set this reminder on 2 days from now
-          r.sms_date = Time.now + 7.days
+          # set this reminder on 10 days from now
+          r.sms_date = Time.now + 10.days
           #
           r.save
         when 1
           #  با شمارش
           khotbe = "وَ طاعَتَنا أَهْلَ الْبَيْتِ نِظاماً لِلْمِلَّةِ \\\\n و پيروى ما اهل بيت را مايه ى هم آهنگى ملّت قرار داد.\\\\n"
-          p = "همیار محترم، با سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده است و منتظر حمایت شما بزرگواریم. لطفا آبونمان را از طریق لینک زیر پرداخت نمایید:\\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+          # sms before khordad 98
+          # p = "همیار محترم، با سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده است و منتظر حمایت شما بزرگواریم. لطفا آبونمان را از طریق لینک زیر پرداخت نمایید:\\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+
+          p = "#{r.payment.person.gender_fa} #{r.payment.person.name}، سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده. لطفا از طریق لینک زیر اقدام :\\\\n http://ab.khetabeghadir.com/#{r.payment.person.slug} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
 
           # p = "همیار محترم، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n امروز موعد ما در حمایت نشر خطابه غدیر و فدک می باشد، لطفا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number}  \\\\n به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز،\\\\n و یا از طریق لینک زیر به سهولت پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
           send_cron_msg(r.payment.person,p,khotbe)
           r.alert_times += 1
-          # set this reminder on 2 days from now
-          r.sms_date = Time.now + 7.days
+          # set this reminder on 10 days from now
+          r.sms_date = Time.now + 10.days
           #
           r.save
-        when 2
-          khotbe = "وَ طاعَتَنا أَهْلَ الْبَيْتِ نِظاماً لِلْمِلَّةِ \\\\n و پيروى ما اهل بيت را مايه ى هم آهنگى ملّت قرار داد.\\\\n"
-          p = "همیار محترم، با سلام، موعد حمایت شما را از نشر خطابه غدیر و فدک یادآور می شویم، لطفا آبونمان را از طریق لینک زیر پرداخت نمایید:\\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
-          # p = "همیار محترم، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n امروز موعد ما در حمایت نشر خطابه غدیر و فدک می باشد، لطفا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number}  \\\\n به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز،\\\\n و یا از طریق لینک زیر به سهولت پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
-          send_cron_msg(r.payment.person,p,khotbe)
-          r.alert_times += 1
-          # set this reminder on 7 days from now
-          r.sms_date = Time.now + 7.days
-          #
-          r.save
+        # when 2
+        #   khotbe = "وَ طاعَتَنا أَهْلَ الْبَيْتِ نِظاماً لِلْمِلَّةِ \\\\n و پيروى ما اهل بيت را مايه ى هم آهنگى ملّت قرار داد.\\\\n"
+        #   # p = "همیار محترم، با سلام، موعد حمایت شما را از نشر خطابه غدیر و فدک یادآور می شویم، لطفا آبونمان را از طریق لینک زیر پرداخت نمایید:\\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+        #
+        #   p = "#{r.payment.person.gender_fa} #{r.payment.person.name}، سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده. لطفا از طریق لینک زیر اقدام :\\\\n http://ab.khetabeghadir.com/#{r.payment.person.slug} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+        #
+        #   # p = "همیار محترم، \\\\n #{r.payment.person.gender_fa} #{r.payment.person.name}، سلام علیکم \\\\n امروز موعد ما در حمایت نشر خطابه غدیر و فدک می باشد، لطفا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number}  \\\\n به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز،\\\\n و یا از طریق لینک زیر به سهولت پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id}"
+        #   send_cron_msg(r.payment.person,p,khotbe)
+        #   r.alert_times += 1
+        #   # set this reminder on 7 days from now
+        #   r.sms_date = Time.now + 7.days
+        #   #
+        #   r.save
         else
           # cancel this turn payment
           payment = r.payment
@@ -58,7 +64,9 @@ namespace :reminder do
           end
           #
           khotbe = "وَ مَنْ أَوْفى بِما عاهَدَ عَلَيْهُ اللَّهَ فَسَيُؤْتيهِ أَجْراً عَظيماً. \\\\n و خداوند آن را كه بر پيمان الاهى وفادار باشد، پاداش بزرگى خواهد داد. \\\\n"
-          p = "همیار محترم، با سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده است و همچنان منتظر حمایت شما بزرگواریم. لطفا آبونمان را از طریق لینک زیر پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+          # p = "همیار محترم، با سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده است و همچنان منتظر حمایت شما بزرگواریم. لطفا آبونمان را از طریق لینک زیر پرداخت نمایید: \\\\n http://ab.khetabeghadir.com/#{r.payment.person.id} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+          p = "#{r.payment.person.gender_fa} #{r.payment.person.name}، سلام، #{(Date.today - r.payment.deadline ).to_i} روز از موعد مشارکت شما سپری شده. لطفا از طریق لینک زیر اقدام :\\\\n http://ab.khetabeghadir.com/#{r.payment.person.slug} \\\\n یا دقیقا مبلغ #{r.payment.person.need_to_pay.to_i}0 ریال را به شماره کارت  #{r.payment.person.bank_account.card_number} به نام #{r.payment.person.bank_account.name}، بانک #{r.payment.person.bank_account.bank_name} واریز فرمایید."
+
           send_cron_msg(person,p,khotbe)
         end
       end

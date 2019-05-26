@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.0.1'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'pg'
@@ -33,7 +33,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
 gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'devise'
+# gem 'devise'
+gem 'devise', git: 'https://github.com/plataformatec/devise'
 gem 'cancan' # or cancancan
 gem 'draper', github: 'audionerd/draper', branch: 'rails5'
 gem 'pundit'
@@ -50,7 +51,7 @@ gem 'premailer-rails'
 gem 'nokogiri'
 gem 'savon', '~> 2.0'
 gem 'simple_captcha', :git => 'git://github.com/pludoni/simple-captcha.git'
-
+gem 'friendly_id'
 gem 'backup'
 gem 'ransack'
 

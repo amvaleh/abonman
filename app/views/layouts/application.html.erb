@@ -5,6 +5,7 @@
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 
 </head>
@@ -22,11 +23,10 @@
   <div id="wrapper">
 
     <nav id="nav">
-      <a href="#me" class="icon fa-home active"></a>
-      <a href="#profile" class="icon fa-user"></a>
-      <a href="#aboneh" class="icon fa-credit-card"></a>
-      <a href="#telegram" class="icon fa-send"></a>
-      <!-- <a href="#info" class="icon fa-info"></a> -->
+      <a href="#me" class="icon fa-home active"> خانه </a>
+      <a href="#profile" class="icon fa-user"> حساب من </a>
+      <a href="#aboneh" class="icon fa-credit-card" style="color:#5175f3"> پرداخت </a>
+      <a href="#telegram" class="icon fa-send"> پشتیبانی </a>
       <br>
     </nav>
 
@@ -34,6 +34,30 @@
     <div id="main">
       <!-- Me -->
       <article id="me" class="panel">
+        <header>
+          <h1>
+            همیار
+            خطابه غدیر و فدک
+          </h1>
+          <p style="text-align: justify; direction: rtl;">
+            به منظور راه اندازی
+            سیستمی جهت مکانیزه کردن آبونه مجموعه و برداشتن قدمی در خدمت به ساحت مقدس حضرت ولی عصر علیه السلام
+            سیستم همیار آبونمان خطابه غدیر و فدک راه اندازی شده است.
+            در صورتیکه علاقه مند هستید مشترک آبونمان شوید لطفا با شماره تلفن
+            ۰۹۱۰۲۲۷۵۸۸۱
+            تماس بگیرید تا اقدامات لازم جهت ثبت نام شما صورت گیرد.
+            <br>
+
+            <span id="mid_div">
+              <a href="#telegram" class="button" style="margin-bottom: 2%;"> پشتیبانی </a>
+              <a href="#aboneh" class="button" style="    background-color: #4f71e8;
+    color: #eaebed;margin-bottom: 2%;"> پرداخت </a>
+              <a href="#profile" style="margin-bottom: 2%;" class="button"> حساب من </a>
+            </span>
+            <br>
+            <br>
+            </p>
+        </header>
         <div class="row">
           <div class="3u 12u$(mobile)" style="float:right!important">
             <a href="#profile" class="jumplink pic">
@@ -46,23 +70,7 @@
 
           </div>
         </div>
-        <header>
-          <h1 >
-            همیار
-            خطابه غدیر و فدک
-          </h1>
-          <p style="text-align: justify; direction: rtl;">
-            به منظور راه اندازی
-            سیستمی جهت مکانیزه کردن آبونه مجموعه و برداشتن قدمی در خدمت به ساحت مقدس حضرت ولی عصر علیه السلام
-            سیستم همیار آبونمان خطابه غدیر و فدک راه اندازی شده است.
-            در صورتیکه علاقه مند هستید مشترک آبونمان شوید لطفا با شماره تلفن
-            ۰۹۱۰۲۲۷۵۸۸۱
-            تماس بگیرید تا اقدامات لازم جهت ثبت نام شما صورت گیرد.
-            در صوتیکه عضو هستید از طریق
-            <a href="#profile" class="jumplink icon fa-user"> ورود </a>
-            می توانید اقدام کنید.
-          </p>
-        </header>
+
       </article>
 
       <!-- Work -->
@@ -271,6 +279,5 @@
     </div>
   </div>
 </div>
-<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>
