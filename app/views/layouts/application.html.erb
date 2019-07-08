@@ -39,7 +39,7 @@
             همیار
             خطابه غدیر و فدک
           </h1>
-          <p style="text-align: justify; direction: rtl;">
+          <p style="text-align: justify; direction: rtl;line-height: 25px;">
             به منظور راه اندازی
             سیستمی جهت مکانیزه کردن آبونه مجموعه و برداشتن قدمی در خدمت به ساحت مقدس حضرت ولی عصر علیه السلام
             سیستم همیار آبونمان خطابه غدیر و فدک راه اندازی شده است.
@@ -47,16 +47,21 @@
             ۰۹۱۰۲۲۷۵۸۸۱
             تماس بگیرید تا اقدامات لازم جهت ثبت نام شما صورت گیرد.
             <br>
-
+            <span style="color:green;">
+              شماره کارت جهت واریز آبونمان‌ (<%= BankAccount.last.name %>):
+            </span>
+            <br>
+            <strong style="font-size: 35px;color:green;"><%= BankAccount.last.card_number %></strong>
+            <br>
+            <br>
             <span id="mid_div">
               <a href="#telegram" class="button" style="margin-bottom: 2%;"> پشتیبانی </a>
               <a href="#aboneh" class="button" style="    background-color: #4f71e8;
-    color: #eaebed;margin-bottom: 2%;"> پرداخت </a>
+              color: #eaebed;margin-bottom: 2%;"> پرداخت </a>
               <a href="#profile" style="margin-bottom: 2%;" class="button"> حساب من </a>
             </span>
-            <br>
-            <br>
             </p>
+
         </header>
         <div class="row">
           <div class="3u 12u$(mobile)" style="float:right!important">
@@ -239,7 +244,7 @@
     <p style="text-align:center;">
       تلگرام:
       <span style="">
-         <%= link_to "abonman_khetabe@" , "https://telegram.me/abonman_khetabe" %>
+        <%= link_to "abonman_khetabe@" , "https://telegram.me/abonman_khetabe" %>
       </span>
     </p>
 
