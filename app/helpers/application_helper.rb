@@ -28,13 +28,13 @@ module ApplicationHelper
       puts msg
       email_msg = msg.gsub(/\\\\n/ , "\\n")
       puts email_msg
-      email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
+      # email = ServiceMailer.send_email(person.email_address,email_msg).deliver_now
     end
     #
     payam = "\"#{msg}\""
     user_teleg_name = person.name.gsub(" ", "_") + " " + person.mobile_number.to_s
     puts "user_teleg_name: " + user_teleg_name
-    Telegram.create!(teleg_name: user_teleg_name , number: person.mobile_number , message: payam )
+    # Telegram.create!(teleg_name: user_teleg_name , number: person.mobile_number , message: payam )
     #
   end
 
