@@ -286,3 +286,17 @@
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+  $('#modal1').easyModal({
+  	top: '50%',
+  	overlayOpacity: 0.9,
+  });
+
+  $('#recover_password').click(function(e){
+  	$('#modal1').trigger('openModal');
+  	e.preventDefault();
+  });
+
+</script>

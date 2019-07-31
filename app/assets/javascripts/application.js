@@ -28,13 +28,3 @@
 //   $("modal1").easyModal();
 //   $("modal1").trigger('openModal');
 // } , false);
-
-$('#modal1').easyModal({
-	top: '50%',
-	overlayOpacity: 0.9,
-});
-
-$('#recover_password').click(function(e){
-	$('#modal1').trigger('openModal');
-	e.preventDefault();
-});
